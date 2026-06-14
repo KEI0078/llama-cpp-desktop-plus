@@ -1281,12 +1281,12 @@ function renderSettingsContent() {
       <div class="settings-note">没有明确需求时可以留空，由 llama.cpp 自动决定。</div>
       <div class="form-grid two">
         ${field('threads', 'Threads', { type: 'number' })}
-        ${field('threads_batch', 'Threads batch', { type: 'number' })}
+        ${selectField('threads_batch', 'Threads batch', ['', 1, 2, 4, 6, 8, 12, 16, 24, 32])}
         ${field('batch_size', 'Batch size', { type: 'number' })}
         ${field('ubatch_size', 'Ubatch size', { type: 'number' })}
         ${selectField('split_mode', 'Split mode', ['', 'layer', 'row', 'none'])}
         ${field('tensor_split', 'Tensor split')}
-        ${field('device', 'Device')}
+        ${selectField('device', 'Device', ['auto', 'cuda', 'vulkan', 'cpu', 'hip', 'metal'])}
         ${renderMainGpuSelect()}
         ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number' })}
       </div>
@@ -1448,10 +1448,6 @@ function renderModernSettingsContent() {
       <div class="settings-stack">
         ${renderModernSettingsCard('当前模型', '这里补上了网页端那种可查看详情的模型入口。', `
           <div class="settings-inline-actions">
-            <button type="button" class="model-chip model-trigger wide" data-action="open-model-info" title="${escapeHtml(state.config?.model || '')}">
-              <span class="model-chip-icon">${renderModelChipIcon()}</span>
-              <span class="model-chip-label">${escapeHtml(modelName())}</span>
-            </button>
             <button type="button" class="outline-btn" data-action="open-model-info">查看模型信息</button>
           </div>
         `)}
