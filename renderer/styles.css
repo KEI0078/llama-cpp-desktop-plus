@@ -1719,7 +1719,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .model-chip {
   position: absolute;
-  right: 66px;
+  left: 14px;
   bottom: 14px;
   max-width: min(280px, calc(100% - 132px));
   align-self: center;
@@ -1791,7 +1791,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   }
 
   .model-chip {
-    right: 62px;
+    left: 14px;
     bottom: 14px;
     max-width: min(210px, calc(100% - 118px));
   }
