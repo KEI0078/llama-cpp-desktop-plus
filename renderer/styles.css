@@ -1304,11 +1304,29 @@ button {
 }
 
 .log-entry {
-  display: grid;
-  grid-template-columns: 46px 42px minmax(0, 1fr);
-  gap: 3px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   padding: 1px 0;
+  align-items: baseline;
+}
+.log-entry .log-time {
+  color: #96b5c2;
+  flex-shrink: 0;
+  min-width: 52px;
+  font-size: 12px;
+}
+.log-entry .log-source {
+  font-weight: 400;
+  flex-shrink: 0;
+  min-width: 36px;
+  font-size: 12px;
+}
+.log-entry .log-line {
+  font-style: normal;
+  overflow-wrap: anywhere;
+  min-width: 0;
 }
 
 .log-entry span {
@@ -1918,8 +1936,6 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .log-entry {
-  grid-template-columns: 46px 42px minmax(0, 1fr);
-  gap: 3px;
 }
 
 .terminal-screen {

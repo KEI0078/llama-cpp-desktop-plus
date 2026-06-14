@@ -797,9 +797,9 @@ function visibleTerminalLogs(limit = 520) {
 function renderLogRow(entry, className = 'terminal-row') {
   return `
     <div class="${className}">
-      <span>${escapeHtml(shortTime(entry.at))}</span>
-      <strong>${escapeHtml(entry.source || 'log')}</strong>
-      <em>${escapeHtml(entry.line || '')}</em>
+      <span class="log-time">${escapeHtml(shortTime(entry.at))}</span>
+      <strong class="log-source">${escapeHtml(entry.source || 'log')}</strong>
+      <em class="log-line">${escapeHtml(entry.line || '')}</em>
     </div>
   `
 }
