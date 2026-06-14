@@ -1454,7 +1454,7 @@ function renderModernSettingsContent() {
         ${renderModernSettingsCard('模型与模板', '切换 GGUF、视觉投影和 MTP draft 模型。', `
           <div style="margin-bottom:10px">
             <button type="button" class="outline-btn small-btn" data-action="scan-models">📂 扫描模型目录</button>
-            ${state._scanResult?.models?.length ? `<span style="color:var(--muted);margin-left:8px;font-size:12px">找到 ${state._scanResult.models.length} 个 .gguf</span>` : ''}
+            ${state._scanResult?.models?.length ? `<span style="color:var(--muted);margin-left:8px;font-size:12px">找到 ${state._scanResult.models.length} 个 .gguf${state._scanResult.smallCount ? `（${state._scanResult.smallCount} 个 <1GB 已过滤）` : ''}</span>` : ''}
           </div>
           <div class="form-grid single">
             ${field('model', '模型文件', { pick: 'gguf', hint: '例如 Qwen3.5-9B.Q4_K_M.gguf' })}
@@ -1597,8 +1597,10 @@ function renderModernSettingsContent() {
           ${br.benchLog?.length ? `<pre class="bench-log" style="margin-bottom:8px">${br.benchLog.map(l => escapeHtml(l)).join('\n━━━━━━━━━━━━━━━━━━━━\n')}</pre>` : ''}
         </section>
         ${renderModernSettingsCard('服务端日志', 'ANSI 颜色码已被过滤。', `
-          <div style="display:flex;gap:4px;margin-bottom:8px;border-bottom:1px solid var(--line);padding-bottom:6px">
+          <div style="display:flex;gap:4px;margin-bottom:8px;border-bottom:1px solid var(--line);padding-bottom:6px;align-items:center">
             ${['all','stdout','stderr'].map(t => `<button type="button" class="outline-btn small-btn ${(state.logTab||'all')===t?'active':''}" data-action="set-log-tab" data-log-tab="${t}" style="font-size:11px;padding:2px 10px">${t==='all'?'全部':t==='stdout'?'运行':'服务端'}</button>`).join('')}
+            <span style="flex:1"></span>
+            <button type="button" class="outline-btn small-btn" data-action="scroll-log-bottom" style="font-size:11px;padding:2px 10px">⬇ 最新</button>
           </div>
           <div class="log-box" id="logBox">
             ${(state.logTab||'all') === 'test' 
@@ -2213,6 +2215,13 @@ appEl.addEventListener('click', event => {
   if (action === 'set-log-tab') {
     state.logTab = target.dataset.logTab || 'all'
     render({ preserveChatScroll: true })
+    return
+  }
+  if (action === 'scroll-log-bottom') {
+    setTimeout(() => {
+      const box = document.querySelector('.log-box')
+      if (box) box.scrollTop = box.scrollHeight
+    }, 50)
     return
   }
   if (action === 'history-edit') {

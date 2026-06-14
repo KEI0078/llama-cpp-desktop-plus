@@ -60,6 +60,8 @@ function defaultSystemPath() {
 
 // v1.0：判断参数是否需要重启才能生效
 let _benchmarkCancel = false
+// v1.0：GPU 信息缓存路径
+function gpuCachePath() { return path.join(app.getPath('userData'), 'gpu-cache.json') }
 // 采样类参数理论上可通过 llama-server 的 /props API 热改，
 // 但稳定起见，全部先按"需重启"处理，让 stop+start 时应用新值
 const HOT_RELOADABLE_PARAMS = new Set([
@@ -286,6 +288,7 @@ function tryParseGpuInfo(line) {
     const freeMB = parseInt(m2a[4], 10)
     if (gpuInfoList.some(g => g.deviceId === devId)) return true
     gpuInfoList.push({ deviceId: devId, name, pciBusId, freeMemoryMB: freeMB })
+    writeFile(gpuCachePath(), JSON.stringify(gpuInfoList), 'utf8').catch(() => {})
     return true
   }
   const pattern2b = /using\s+device\s+CUDA:?(\d+).*?\(([^)]+)\).*?\(([^)]+)\).*?(\d+)\s+MiB/i
@@ -297,6 +300,7 @@ function tryParseGpuInfo(line) {
     const freeMB = parseInt(m2b[4], 10)
     if (gpuInfoList.some(g => g.deviceId === devId)) return true
     gpuInfoList.push({ deviceId: devId, name, pciBusId, freeMemoryMB: freeMB })
+    writeFile(gpuCachePath(), JSON.stringify(gpuInfoList), 'utf8').catch(() => {})
     return true
   }
 
@@ -1308,11 +1312,15 @@ function registerIpc() {
 
   // v1.0：获取/清除 GPU 信息
   ipcMain.handle('llama:get-gpu-info', async () => {
-    return { gpuInfos: getGpuInfos() }
+    const gpuInfos = getGpuInfos()
+    if (gpuInfos.length) return { gpuInfos }
+    try { const cached = JSON.parse(await readFile(gpuCachePath(), 'utf8')); return { gpuInfos: cached || [] } }
+    catch { return { gpuInfos: [] } }
   })
 
   ipcMain.handle('llama:clear-gpu-infos', async () => {
     clearGpuInfos()
+    try { await writeFile(gpuCachePath(), '[]', 'utf8') } catch { /* ignore */ }
     return { ok: true }
   })
 
@@ -1481,25 +1489,32 @@ function registerIpc() {
     const dir = result.filePaths[0]
     const files = await readdir(dir)
     const ggufFiles = files.filter(f => f.toLowerCase().endsWith('.gguf')).sort()
-    const models = ggufFiles.map(f => {
+    const models = []
+    for (const f of ggufFiles) {
       const lower = f.toLowerCase()
       let type = 'model'
       if (lower.includes('mmproj')) type = 'mmproj'
       else if (lower.includes('mtp')) {
-        // MTP（大写）= 模型内置MTP，作为主模型；mtp（小写）= 需单独加载的draft
         type = f.includes('MTP') ? 'model' : 'mtp'
       }
-      return { name: f, path: path.join(dir, f), type }
-    })
+      const fullPath = path.join(dir, f)
+      // 过滤：主模型文件小于 1GB 时标记为 small（但不完全排除，让用户手动确认）
+      let isSmall = false
+      if (type === 'model') {
+        try { isSmall = (await stat(fullPath)).size < 1.2 * 1024 * 1024 * 1024 } catch { /* ignore */ }
+      }
+      models.push({ name: f, path: fullPath, type, isSmall })
+    }
     return {
       ok: true,
       dir,
       models,
       suggested: {
-        model: models.find(m => m.type === 'model')?.path || '',
+        model: models.find(m => m.type === 'model' && !m.isSmall)?.path || models.find(m => m.type === 'model')?.path || '',
         mmproj: models.find(m => m.type === 'mmproj')?.path || '',
         mtp: models.find(m => m.type === 'mtp')?.path || '',
       },
+      smallCount: models.filter(m => m.isSmall).length,
     }
   })
 
