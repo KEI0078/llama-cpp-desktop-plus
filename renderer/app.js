@@ -1601,6 +1601,7 @@ function renderModernSettingsContent() {
             ${['all','stdout','stderr'].map(t => `<button type="button" class="outline-btn small-btn ${(state.logTab||'all')===t?'active':''}" data-action="set-log-tab" data-log-tab="${t}" style="font-size:11px;padding:2px 10px">${t==='all'?'全部':t==='stdout'?'运行':'服务端'}</button>`).join('')}
             <span style="flex:1"></span>
             <button type="button" class="outline-btn small-btn" data-action="scroll-log-bottom" style="font-size:11px;padding:2px 10px">⬇ 最新</button>
+            <button type="button" class="outline-btn small-btn" data-action="clear-logs" style="font-size:11px;padding:2px 10px;color:#e74c3c">✕ 清空</button>
           </div>
           <div class="log-box" id="logBox">
             ${(state.logTab||'all') === 'test' 
@@ -2222,6 +2223,11 @@ appEl.addEventListener('click', event => {
       const box = document.querySelector('.log-box')
       if (box) box.scrollTop = box.scrollHeight
     }, 50)
+    return
+  }
+  if (action === 'clear-logs') {
+    state.logs = []
+    render({ preserveChatScroll: true })
     return
   }
   if (action === 'history-edit') {
