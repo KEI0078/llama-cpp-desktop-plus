@@ -1340,7 +1340,8 @@ button {
 }
 
 .toast {
-  right: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 24px;
   max-width: 520px;
   display: none;
