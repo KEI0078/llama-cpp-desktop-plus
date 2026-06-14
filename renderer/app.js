@@ -1291,7 +1291,7 @@ function renderSettingsContent() {
         ${selectField('split_mode', 'Split mode', ['', 'layer', 'row', 'none'])}
         ${field('tensor_split', 'Tensor split')}
         ${field('device', 'Device')}
-        ${field('main_gpu', 'Main GPU', { type: 'number' })}
+        ${renderMainGpuSelect()}
         ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number' })}
       </div>
       <div class="switch-grid">${switchField('cpu_moe', 'MoE 权重保留在 CPU', '显存紧张时有用。')}</div>
@@ -2633,6 +2633,20 @@ function renderCtxSizeSelect() {
   }
   const opts = sizes.map(s => `<option value="${s.value}" ${String(val) === String(s.value) ? 'selected' : ''}>${s.label}</option>`).join('')
   return `<label class="field"><span>上下文大小</span><div><select data-field="ctx_size">${opts}</select></div><div class="hint">建议不超过模型支持的最大值</div></label>`
+}
+
+// Main GPU 下拉选择器（根据检测到的显卡数量动态生成）
+function renderMainGpuSelect() {
+  const val = state.config.main_gpu ?? 0
+  const gpuCount = (state.gpuInfos || []).length
+  const count = Math.max(gpuCount, 4) // 至少显示 0-3，即使没检测到显卡
+  const opts = []
+  for (let i = 0; i < count; i++) {
+    const label = gpuCount > i ? `GPU ${i}` : `GPU ${i}（未检测到）`
+    opts.push(`<option value="${i}" ${Number(val) === i ? 'selected' : ''}>${label}</option>`)
+  }
+  opts.push(`<option value="" ${val === '' || val === undefined ? 'selected' : ''}>auto</option>`)
+  return `<label class="field"><span>主 GPU</span><div><select data-field="main_gpu">${opts.join('')}</select></div></label>`
 }
 
 // 渲染【概述】→运行参数中的动态参数（从 params 分类提取常规参数）
