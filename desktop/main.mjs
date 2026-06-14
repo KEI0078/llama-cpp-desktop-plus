@@ -635,10 +635,13 @@ async function loadFlagMap() {
 }
 async function buildExtraArgsFromConfig(config) {
   const flagMap = await loadFlagMap()
+  // llama-cli 专用参数，llama-server 不认，跳过
+  const clientOnly = new Set(['keep', 'prompt'])
   const extra = []
   for (const [key, val] of Object.entries(config || {})) {
     if (!key.startsWith('p_')) continue
     const shortName = key.slice(2) // "p_threads" → "threads"
+    if (clientOnly.has(shortName)) continue
     const flag = flagMap.get(shortName)
     if (!flag) continue
     if (val === undefined || val === null || val === '') continue
