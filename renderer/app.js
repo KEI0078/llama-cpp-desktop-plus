@@ -1156,10 +1156,6 @@ function renderChat() {
             <button class="round-btn" type="button" data-action="toggle-attachment-menu" title="添加内容">+</button>
           </div>
           <textarea data-chat-input spellcheck="false" placeholder="输入一条消息……">${escapeHtml(state.chatInput)}</textarea>
-          <button class="model-chip model-trigger" type="button" data-action="open-model-info" title="${escapeHtml(state.config?.model || '')}">
-            <span class="model-chip-icon">${renderModelChipIcon()}</span>
-            <span class="model-chip-label">${escapeHtml(modelName())}</span>
-          </button>
           <button class="send-btn" type="button" data-action="send-chat" ${state.chatBusy ? 'disabled' : ''}>
             ${state.chatBusy ? '...' : '↑'}
           </button>

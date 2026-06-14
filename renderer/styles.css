@@ -1909,14 +1909,17 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .log-box {
   width: 100%;
-  min-height: 520px;
-  max-height: calc(100vh - 250px);
-  overflow: auto;
+  min-height: 420px;
+  max-height: calc(100vh - 260px);
+  overflow-y: auto;
   white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .log-entry {
   grid-template-columns: 82px 66px minmax(0, 1fr);
+  gap: 6px;
 }
 
 .terminal-screen {
