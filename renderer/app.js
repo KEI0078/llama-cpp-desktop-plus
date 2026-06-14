@@ -1696,6 +1696,7 @@ function render(options = {}) {
             <span class="status-dot ${statusClass()}"></span>
             <span>${statusLabel()} · ${escapeHtml(compactStatusMessage(state.status.message || ''))}</span>
             <code>${escapeHtml(state.status.url || '')}</code>
+            ${renderContextUsage()}
           </div>
           <div class="service-actions">
             <button class="outline-btn" type="button" data-action="save" ${state.busy ? 'disabled' : ''}>保存配置</button>
@@ -2639,7 +2640,7 @@ function renderCtxSizeSelect() {
 function renderMainGpuSelect() {
   const val = state.config.main_gpu ?? 0
   const gpuCount = (state.gpuInfos || []).length
-  const count = Math.max(gpuCount, 4) // 至少显示 0-3，即使没检测到显卡
+  const count = Math.max(gpuCount, 4)
   const opts = []
   for (let i = 0; i < count; i++) {
     const label = gpuCount > i ? `GPU ${i}` : `GPU ${i}（未检测到）`
@@ -2647,6 +2648,20 @@ function renderMainGpuSelect() {
   }
   opts.push(`<option value="" ${val === '' || val === undefined ? 'selected' : ''}>auto</option>`)
   return `<label class="field"><span>主 GPU</span><div><select data-field="main_gpu">${opts.join('')}</select></div></label>`
+}
+
+// 上下文使用率指示器
+function renderContextUsage() {
+  const maxCtx = Number(state.config.ctx_size) || 0
+  if (!maxCtx) return ''
+  const msgs = state.chatMessages || []
+  let used = 0
+  for (const msg of msgs) {
+    used += Number(msg.tokens || msg.estimatedTokens || estimateTokens(msg.content || ''))
+  }
+  const pct = Math.min(100, Math.round((used / maxCtx) * 100))
+  const color = pct > 80 ? '#e74c3c' : pct > 60 ? '#f39c12' : '#91a08d'
+  return `<span class="ctx-meter" title="已用 ${used.toLocaleString()} / ${maxCtx.toLocaleString()} tokens" style="color:${color};margin-left:8px;font-size:12px;white-space:nowrap">▦ ${used.toLocaleString()} / ${maxCtx.toLocaleString()} (${pct}%)</span>`
 }
 
 // 渲染【概述】→运行参数中的动态参数（从 params 分类提取常规参数）
