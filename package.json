@@ -1,0 +1,18 @@
+{
+  "name": "llama-cpp-desktop-plus",
+  "version": "1.0.0",
+  "description": "Qiao-920/llama-cpp-desktop 增强版：在原版基础上整合 11 分类参数面板、5 个高级工具（上下文批量测速/多线程/llama-bench/模板分析/并发压测）、MTP 模型支持、GPU 实时信息解析。",
+  "author": "KEI0078",
+  "license": "MIT",
+  "type": "module",
+  "main": "desktop/main.mjs",
+  "productName": "Llama.cpp Desktop Plus",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish never"
+  },
+  "devDependencies": {
+    "electron": "41.1.1",
+    "electron-builder": "26.8.1"
+  }
+}

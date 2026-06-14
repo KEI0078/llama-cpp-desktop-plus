@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Llama.cpp Desktop Plus</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./settings/settings.css" />
+  </head>
+  <body>
+    <!-- Qiao 原版聊天 + 设置 UI 容器（保留） -->
+    <div id="app"></div>
+
+    <!-- 独立设置页（v1.0 新增） -->
+    <div id="settings-page" class="settings-page" style="display: none;">
+      <div class="settings-header">
+        <h1>⚙ 独立设置</h1>
+        <div class="settings-header-actions">
+          <button id="settings-back-btn" type="button">← 返回聊天</button>
+          <button id="settings-save-btn" class="primary" type="button">保存配置</button>
+        </div>
+      </div>
+      <div id="settings-body" class="settings-body"></div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

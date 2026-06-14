@@ -1,0 +1,24 @@
+appId: local.llamacpp.desktop-plus
+productName: Llama.cpp Desktop Plus
+directories:
+  output: dist
+files:
+  - assets/**
+  - desktop/**
+  - renderer/**
+  - changelog/**
+  - package.json
+win:
+  icon: assets/llama-cpp.ico
+  target:
+    - portable
+    - nsis
+  artifactName: Llama.cpp-Desktop-Plus.${ext}
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  artifactName: Llama.cpp-Desktop-Plus-Setup.${ext}
+asar: true
+compression: normal
