@@ -1305,10 +1305,10 @@ button {
 
 .log-entry {
   display: grid;
-  grid-template-columns: 78px 62px minmax(0, 1fr);
-  gap: 10px;
+  grid-template-columns: 46px 42px minmax(0, 1fr);
+  gap: 3px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 3px 0;
+  padding: 1px 0;
 }
 
 .log-entry span {
@@ -1918,8 +1918,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .log-entry {
-  grid-template-columns: 82px 66px minmax(0, 1fr);
-  gap: 6px;
+  grid-template-columns: 46px 42px minmax(0, 1fr);
+  gap: 3px;
 }
 
 .terminal-screen {

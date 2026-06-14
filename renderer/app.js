@@ -2677,6 +2677,21 @@ function renderOverviewParams() {
       if (p.type === 'checkbox' || p.type === 'file') continue
       if (skipSN.has(p.shortName)) continue
       const vk = 'p_' + (p.shortName || p.name)
+      // main-gpu 特殊处理：动态下拉菜单
+      if (p.shortName === 'main-gpu') {
+        const val = state.config[vk] ?? 0
+        const gpuCount = (state.gpuInfos || []).length
+        const count = Math.max(gpuCount, 4)
+        const opts = []
+        for (let i = 0; i < count; i++) {
+          const label = gpuCount > i ? `GPU ${i}` : `GPU ${i}（未检测到）`
+          opts.push(`<option value="${i}" ${Number(val) === i ? 'selected' : ''}>${label}</option>`)
+        }
+        opts.push(`<option value="" ${val === '' || val === undefined ? 'selected' : ''}>auto</option>`)
+        const hint = p.description ? `<div class="hint">${escapeHtml(p.description)}</div>` : ''
+        parts.push(`<label class="field"><span>${escapeHtml(p.name)}</span><div><select data-field="${vk}">${opts.join('')}</select></div>${hint}</label>`)
+        continue
+      }
       const opts = {}
       if (p.type === 'number') opts.type = 'number'
       if (p.min !== undefined) opts.min = p.min
