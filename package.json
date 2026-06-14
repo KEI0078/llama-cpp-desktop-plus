@@ -1,7 +1,7 @@
 {
   "name": "llama-cpp-desktop-plus",
   "version": "1.0.0",
-  "description": "Qiao-920/llama-cpp-desktop 增强版：在原版基础上整合 11 分类参数面板、5 个高级工具（上下文批量测速/多线程/llama-bench/模板分析/并发压测）、MTP 模型支持、GPU 实时信息解析。",
+  "description": "基于 Qiao-920/llama-cpp-desktop 的增强版。整合 MTP 支持、GPU 实时解析、3 个测速工具、模型扫描、参数整合、脚本与配置管理。",
   "author": "KEI0078",
   "license": "MIT",
   "type": "module",

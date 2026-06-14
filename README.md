@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="assets/llama-cpp.png" width="88" alt="Llama.cpp Desktop logo" />
+  <img src="assets/llama-cpp.png" width="88" alt="Llama.cpp Desktop Plus logo" />
 
-  <h1>Llama.cpp Desktop</h1>
+  <h1>Llama.cpp Desktop Plus</h1>
 
   <p>
-    一个给 Windows 本地 llama.cpp 准备的桌面端控制面板。
+    基于 <a href="https://github.com/Qiao-920/llama-cpp-desktop">Qiao-920/llama-cpp-desktop</a> 的增强版本。
     <br />
-    启动服务、配置模型、查看日志、直接聊天和接入 OpenAI Compatible 客户端，都放在一个窗口里。
+    整合 cn.LammaForms 的 6 大差异化功能，保持 Qiao 现代 UI 的同时补全专业工具链。
   </p>
 
   <p>
@@ -17,79 +17,94 @@
   </p>
 </div>
 
-![Llama.cpp Desktop preview](docs/desktop-preview.svg)
+## 与原版的差异
 
-## 亮点
+| 功能 | Qiao 原版 | Plus 增强版 |
+|------|-----------|-----------|
+| 参数管理 | 8 个基础 tab（采样/惩罚/开发者等） | + 7 分类常用参数整合进概述→运行参数，下拉选择/提示说明更完整 |
+| MTP 支持 | ❌ 不支持 | ✅ `--model-draft` + `--spec-type draft-mtp`，自动识别 MTP/mtp 文件名 |
+| GPU 信息 | ❌ 无 | ✅ 从 llama.cpp 输出实时解析显卡型号/显存，概述卡片展示 |
+| 测试工具 | ❌ 无 | ✅ 上下文批量测速、CPU 多线程测试、llama-bench 基准，带停止按钮和实时日志 |
+| 模型扫描 | ❌ 手动选路径 | ✅ 扫描目录自动识别主模型/mmproj/MTP，智能分类填入 |
+| 脚本配置 | ❌ 无 | ✅ 保存/加载启动脚本、模型配置一键保存/加载 |
+| 参数解析 | 自动（保存时） | ✅ 手动"解析参数"按钮，随时刷新启动命令 |
+| MCP | 预留空位 | 预留 |
+| 模型配置切换 | ❌ 无 | ✅ 保存/加载 .json，一键切换不同模型参数 |
 
-| 功能 | 说明 |
-| --- | --- |
-| 本地直连 | 直接启动 llama.cpp 原版目录里的 `llama-server.exe`，不强依赖额外启动器 |
-| OpenAI 兼容 | 默认提供 `http://127.0.0.1:8080/v1`，可接入 OpenClaw、Claude Code 等客户端 |
-| 桌面聊天 | 内置网页端风格聊天页面，支持流式回复、历史对话、搜索和消息操作 |
-| 附件入口 | 支持图片、文本、PDF 等附件入口，图片可在聊天里预览 |
-| 模型信息 | 点击模型标签即可查看当前模型、上下文、GPU 层数和运行参数 |
-| 终端日志 | 在客户端里查看 llama.cpp 输出，方便排查启动和推理问题 |
-| 托盘后台 | 关闭窗口后隐藏到系统托盘，服务继续后台运行 |
-| 参数配置 | 支持模型路径、上下文、采样、GPU 层数、线程和批处理参数 |
+## ✨ 增强功能一览
 
-## 下载
+### 🔧 参数管理
+- 7 个分类的常用参数整合进【概述】→运行参数（form-grid two 两列布局）
+- CPU线程数、批处理大小、上下文大小等下**拉选择**替代手动输入
+- 参数悬停 **tooltip** 显示说明
 
-首次发布包会放在 GitHub Releases 页面：
+### 🚀 MTP 多 Token 预测
+- `--model-draft` + `--spec-type draft-mtp` + `--spec-draft-n-max 2` 自动追加
+- 文件名智能识别：`MTP`（大写）= 模型内置 | `mtp`（小写）= 单独加载
 
-[打开 Releases](https://github.com/Qiao-920/llama-cpp-desktop/releases)
+### 🖥️ GPU 实时解析
+- 从 llama.cpp 输出实时解析显卡型号、显存
+- 支持两种输出格式（ggml_cuda_init / 旧版 CUDA）
+- 概述→已检测的显卡卡片展示
 
-下载 `Llama.cpp-Desktop.exe` 后双击运行即可。项目本身不包含模型文件和 llama.cpp 二进制文件，需要你本机已经有可用的 llama.cpp Windows 构建目录。
+### 📊 测试工具（【日志】→快速测速）
+- **上下文批量测速**：4K~1M 勾选遍历，对比 Prompt/Generation 速度
+- **CPU 多线程测试**：1~16 线程勾选遍历，找最优线程数
+- **llama-bench 基准**：调用 llama-bench 做硬件性能测试
+- **停止按钮**：可强制中断正在运行的测试
+- **实时日志**：测试输出实时显示在日志窗口
+
+### 📂 模型扫描
+- 扫描目录下所有 .gguf 文件
+- 智能分类：主模型 / mmproj 投影 / MTP(mtp) draft
+- 扫描后自动填入路径，未找到则清空
+
+### 📝 脚本与配置
+- **保存/加载启动脚本**：生成 .bat（Windows）/ .sh（Linux）
+- **模型配置保存/加载**：存为 .json，一键切换不同模型参数
+- **解析参数按钮**：手动刷新启动命令
 
 ## 快速开始
 
-1. 下载并打开 `Llama.cpp-Desktop.exe`。
-2. 在设置里选择 llama.cpp 原文件目录，或直接选择 `llama-server.exe`。
-3. 选择你的 GGUF 模型文件。
-4. 保存配置并启动服务。
-5. 使用内置聊天，或把 `http://127.0.0.1:8080/v1` 接入 OpenAI 兼容客户端。
+1. 配置 llama.cpp 路径和模型文件（【模型】→模型与模板）
+2. 点「扫描模型目录」自动检测，或手动选择
+3. 点「保存并启动」
+4. 使用内置聊天，或接入 Hermes / OpenClaw 等客户端
 
 ## 开发运行
 
-```powershell
+```bash
+cd "llama-cpp-desktop-plus-source code"
 npm install
 npm start
 ```
 
 ## 打包
 
-```powershell
-npm run dist
+```bash
+# 国内需 electron 镜像
+ELECTRON_MIRROR="https://npmmirror.com/mirrors/electron/" npm run dist
 ```
 
-打包产物会生成在 `dist/`，该目录不会提交到 Git。
-
-## 当前限制 / Roadmap
-
-- 当前主要面向 Windows 10 / 11。Ubuntu、macOS 等跨平台版本需要继续适配路径、进程管理、托盘和打包配置。
-- 项目不内置 llama.cpp、模型文件、显卡驱动或 CUDA / Vulkan 运行库，需要用户本机已有可用环境。
-- 图片入口可以预览并发送图片，但真正理解图片需要视觉模型和对应的 `mmproj` 多模态投影文件。
-- 普通文本模型不能因为上传了图片就自动具备看图能力；视频理解当前暂未支持。
-- ngram、多 GPU、speculative decoding 等高级能力可以先通过“自定义附加参数”传给本机 `llama-server`，具体是否生效取决于本地 llama.cpp 版本。
-- 如果桌面端速度和原生命令行差异明显，请先复制“最终启动命令”，对比 GPU layers、上下文、batch、ubatch、threads 等参数。
-- Qwen 等 thinking 模型是否输出 `<think>` 内容取决于模型、模板和 `chat_template_kwargs`；桌面端会解析并折叠展示返回中的 `<think>...</think>`。
+产物：`dist/Llama.cpp-Desktop-Plus-{日期}.exe`（便携版）和 `-Setup.exe`（安装版）。
 
 ## 项目结构
 
 ```text
-assets/      图标和托盘图标
-desktop/     Electron 主进程和预加载脚本
-renderer/    桌面端界面
-scripts/     图标生成脚本
+desktop/      Electron 主进程（IPC + 测速引擎 + GPU 解析 + MTP）
+renderer/     桌面端界面（Qiao 原生组件 + 新增卡片/表格/日志）
+renderer/params/  参数配置文件（llama-params.json + turboquant-params.json）
 ```
 
 ## 开源说明
 
-本仓库只包含桌面端源码，不包含：
+本仓库基于 [Qiao-920/llama-cpp-desktop](https://github.com/Qiao-920/llama-cpp-desktop)（MIT 协议）进行增强开发。
 
-- llama.cpp 二进制文件
-- GGUF / GGML 模型文件
-- 打包生成的 exe
-- 本地配置文件和运行日志
+- ✅ 保留原版全部功能（聊天/日志/终端/托盘/OpenAI 兼容 API）
+- ✅ 新增功能不破坏原版架构
+- ⚠️ 不包含 llama.cpp 二进制文件、GGUF 模型文件
+
+原作者：[Qiao-920](https://github.com/Qiao-920)
 
 ## License
 
