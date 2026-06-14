@@ -636,7 +636,7 @@ async function loadFlagMap() {
 async function buildExtraArgsFromConfig(config) {
   const flagMap = await loadFlagMap()
   // llama-server 不支持的参数，跳过
-  const clientOnly = new Set(['keep', 'prompt', 'tri-budget', 'tri-interval', 'tri-keep-first', 'attn-rot-k', 'attn-rot-v', 'reasoning-format', 'reasoning-budget'])
+  const clientOnly = new Set(['keep', 'prompt', 'tri-budget', 'tri-interval', 'tri-keep-first', 'attn-rot-k', 'attn-rot-v', 'reasoning-format', 'reasoning-budget', 'n-gpu-layers', 'ngl', 'n-predict', 'ctx-size', 'ctx_size', 'temp', 'top-k', 'top-p', 'min-p', 'presence-penalty', 'repeat-penalty', 'threads', 'threads-batch', 'batch-size', 'ubatch-size'])
   const extra = []
   for (const [key, val] of Object.entries(config || {})) {
     if (!key.startsWith('p_')) continue
