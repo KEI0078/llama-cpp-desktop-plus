@@ -69,10 +69,9 @@
           "name": "并行请求数",
           "shortName": "parallel",
           "flag": "--parallel",
-          "type": "numeric",
+          "type": "combo",
           "default": 1,
-          "min": 1,
-          "max": 64,
+          "options": [1, 2, 4, 8, 16, 32, 64],
           "description": "并行处理的请求数量（服务端并发槽位数）",
           "tooltip": "多客户端场景下可适当增大，单测速场景保持为1"
         },
@@ -223,12 +222,11 @@
           "name": "Top-K",
           "shortName": "top-k",
           "flag": "--top-k",
-          "type": "numeric",
+          "type": "combo",
           "default": 40,
-          "min": 0,
-          "max": 100,
+          "options": [0, 10, 20, 40, 60, 80, 100],
           "description": "只考虑概率最高的N个token",
-          "tooltip": "设置为0禁用"
+          "tooltip": "0=禁用；20=保守；40=默认；60=开放"
         },
         {
           "name": "Top-P",
