@@ -635,8 +635,8 @@ async function loadFlagMap() {
 }
 async function buildExtraArgsFromConfig(config) {
   const flagMap = await loadFlagMap()
-  // llama-cli 专用参数，llama-server 不认，跳过
-  const clientOnly = new Set(['keep', 'prompt'])
+  // llama-server 不支持的参数，跳过
+  const clientOnly = new Set(['keep', 'prompt', 'tri-budget', 'tri-interval', 'tri-keep-first', 'attn-rot-k', 'attn-rot-v', 'reasoning-format', 'reasoning-budget'])
   const extra = []
   for (const [key, val] of Object.entries(config || {})) {
     if (!key.startsWith('p_')) continue

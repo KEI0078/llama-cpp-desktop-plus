@@ -2641,7 +2641,7 @@ function renderOverviewParams() {
   const cats = state.paramsCategories
   if (!cats) return ''
 
-  const skipSN = new Set(['model', 'mmproj', 'mtp', 'n-predict', 'ctx-size', 'n-gpu-layers', 'ngl', 'keep', 'prompt'])
+  const skipSN = new Set(['model', 'mmproj', 'mtp', 'n-predict', 'ctx-size', 'n-gpu-layers', 'ngl', 'keep', 'prompt', 'tri-budget', 'tri-interval', 'tri-keep-first', 'attn-rot-k', 'attn-rot-v', 'reasoning-format', 'reasoning-budget'])
   const parts = []
 
   for (const cat of cats) {
