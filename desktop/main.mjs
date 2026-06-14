@@ -12,8 +12,8 @@ const preloadPath = path.join(__dirname, 'preload.cjs')
 const rendererPath = path.join(rootDir, 'renderer', 'index.html')
 const iconPath = path.join(rootDir, 'assets', 'llama-cpp.ico')
 const trayIconPath = path.join(rootDir, 'assets', 'llama-cpp-tray.png')
-const authoredBaseDir = 'G:\\llama.cpp\\llama.cpp启动器'
-const authoredServerPath = 'G:\\llama.cpp\\llama-b8272-bin-win-cuda-12.4-x64\\llama-server.exe'
+const authoredBaseDir = 'E:\\llama.cpp\\llama-b9601-bin-win-cuda-13.3-x64'
+const authoredServerPath = 'E:\\llama.cpp\\llama-b9601-bin-win-cuda-13.3-x64\\llama-server.exe'
 const authoredServerDir = path.dirname(authoredServerPath)
 
 let mainWindow = null
