@@ -708,14 +708,14 @@ function pushArg(args, flag, value) {
   }
 }
 
-function buildServerArgs(config) {
+async function buildServerArgs(config) {
   const args = []
   pushArg(args, '--model', config.model)
   pushArg(args, '--mmproj', config.mmproj)
-  pushArg(args, '--model-draft', config.mtp)  // v1.0：MTP draft 模型
+  pushArg(args, '--model-draft', config.mtp)
   if (config.mtp) {
     pushArg(args, '--spec-type', 'draft-mtp')
-    pushArg(args, '--spec-draft-n-max', config.spec_draft_n_max ?? 2)  // 默认 2，可在 extra_args 里调
+    pushArg(args, '--spec-draft-n-max', config.spec_draft_n_max ?? 2)
   }
   pushArg(args, '--host', config.host)
   pushArg(args, '--port', config.port)
@@ -745,6 +745,11 @@ function buildServerArgs(config) {
   args.push(config.webui ? '--webui' : '--no-webui')
   if (config.embeddings) args.push('--embeddings')
   args.push(config.continuous_batching ? '--cont-batching' : '--no-cont-batching')
+
+  // v1.0：自动合并 p_ 前缀参数（不走 extra_args，避免重复累积）
+  const autoArgs = await buildExtraArgsFromConfig(config)
+  args.push(...splitExtraArgs(autoArgs))
+
   args.push(...splitExtraArgs(config.extra_args))
 
   return args
@@ -758,11 +763,11 @@ function quoteCommandPart(value) {
   return /[\s"]/u.test(text) ? `"${text.replace(/"/g, '\\"')}"` : text
 }
 
-function buildLaunchDetails(config) {
+async function buildLaunchDetails(config) {
   const directMode = config.launch_mode !== 'launcher'
   const command = directMode ? config.llama_server_path : config.launcher_path
   try {
-    const args = directMode ? buildServerArgs(config) : []
+    const args = directMode ? await buildServerArgs(config) : []
     return {
       mode: directMode ? 'direct' : 'launcher',
       command,
@@ -1025,7 +1030,7 @@ async function appState() {
     status: runtimeStatus,
     logs,
     validation: validation(config),
-    launch: buildLaunchDetails(config),
+    launch: await buildLaunchDetails(config),
   }
 }
 
@@ -1170,25 +1175,14 @@ function registerIpc() {
   ipcMain.handle('llama:get-state', async () => appState())
 
   ipcMain.handle('llama:save-config', async (_event, payload) => {
-    // v1.0：合并 system.json 的 UI 参数
-    const mergedPayload = { ...payload }
-    if (mergedPayload.config) {
-      const sysExtra = await buildExtraArgsFromConfig(mergedPayload.config)
-      if (sysExtra) {
-        const existing = (mergedPayload.config.extra_args || '').trim()
-        mergedPayload.config.extra_args = existing
-          ? existing + ' ' + sysExtra
-          : sysExtra
-      }
-    }
-    const config = await saveConfig(mergedPayload.config)
+    const config = await saveConfig(payload.config)
     addLog('desktop', `配置已保存：${config.config_path}`)
     return {
       config,
       validation: validation(config),
       status: runtimeStatus,
       logs,
-      launch: buildLaunchDetails(config),
+      launch: await buildLaunchDetails(config),
     }
   })
 
@@ -1197,19 +1191,7 @@ function registerIpc() {
       return appState()
     }
 
-    // v1.0：先合并 system.json 参数到 config
-    const mergedPayload = { ...payload }
-    if (mergedPayload.config) {
-      const sysExtra = await buildExtraArgsFromConfig(mergedPayload.config)
-      if (sysExtra) {
-        const existing = (mergedPayload.config.extra_args || '').trim()
-        mergedPayload.config.extra_args = existing
-          ? existing + ' ' + sysExtra
-          : sysExtra
-      }
-    }
-
-    const config = await saveConfig(mergedPayload.config)
+    const config = await saveConfig(payload.config)
     const directMode = config.launch_mode !== 'launcher'
     if (!directMode && !existsSync(config.launcher_path)) {
       throw new Error(`找不到启动器：${config.launcher_path}`)
@@ -1220,7 +1202,7 @@ function registerIpc() {
     if (!existsSync(config.model)) {
       throw new Error(`找不到模型文件：${config.model}`)
     }
-    const launch = buildLaunchDetails(config)
+    const launch = await buildLaunchDetails(config)
     if (launch.error) {
       throw new Error(launch.error)
     }
