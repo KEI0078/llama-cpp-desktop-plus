@@ -2343,6 +2343,9 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .terminal-screen .terminal-console {
   min-height: 420px;
   max-height: calc(100vh - 260px);
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
   border: 0;
   border-radius: 0;
   background: #11140f;
@@ -3089,4 +3092,4 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .avatar { background: var(--bg-soft); color: var(--ink); }
 
 /* 终端日志工具栏 */
-.log-toolbar { display:flex; gap:6px; align-items:center; padding:6px 10px; border-bottom:1px solid var(--line); background:var(--surface); flex-wrap:wrap; width:100%; }
+.log-toolbar { display:flex; gap:6px; align-items:center; padding:6px 10px; border-bottom:1px solid var(--line); background:var(--surface); flex-wrap:wrap; width:100%; max-width:920px; margin:0 auto; }
