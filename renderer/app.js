@@ -1683,7 +1683,7 @@ function render(options = {}) {
     <div class="drag-region">
       <button type="button" class="sidebar-toggle" data-action="toggle-sidebar" title="${state.sidebarCollapsed ? '显示侧边栏' : '隐藏侧边栏'}">${renderSidebarToggleIcon()}</button>
       <div style="display:flex;align-items:center;gap:4px">
-        <button type="button" class="theme-toggle" data-action="toggle-theme" title="${state.config?.dark_theme ? '切换日间主题' : '切换暗夜主题'}">${state.config?.dark_theme ? '🌙' : '☀️'}</button>
+        <button type="button" class="theme-toggle" data-action="toggle-theme" title="${state.config?.dark_theme ? '切换日间主题' : '切换暗夜主题'}"><img src="../UI/${state.config?.dark_theme ? '月亮星星' : '日间'}.png" class="theme-icon" alt="theme" /></button>
         <button type="button" class="gear-btn" data-action="toggle-settings" title="打开设置">${renderGearIcon()}</button>
       </div>
     </div>

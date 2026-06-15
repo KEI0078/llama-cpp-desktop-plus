@@ -3086,3 +3086,4 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .model-info-row span { color: var(--muted); }
 .theme-dark .log-time { color: #58a6ff; }
 .theme-dark .side-action.active { color: var(--green); }
+.theme-toggle .theme-icon { width: 20px; height: 20px; display: block; pointer-events: none; }
