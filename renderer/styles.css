@@ -1322,6 +1322,7 @@ button {
   flex-wrap: nowrap;
   gap: 0;
   padding: 0;
+  margin: 0;
   align-items: baseline;
 }
 .log-entry .log-time {
@@ -2275,10 +2276,11 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   padding: 10px 12px;
 }
 
-.terminal-row,
-.log-entry {
+.log-entry,
+.terminal-row {
   align-items: baseline;
   padding: 0;
+  margin: 0;
 }
 
 .terminal-row:last-child,
