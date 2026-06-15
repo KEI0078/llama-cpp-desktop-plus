@@ -1335,7 +1335,15 @@ function renderSettingsContent() {
         ${field('n_predict', '输出长度 n_predict', { type: 'number' })}
         ${field('n_gpu_layers', 'GPU 层数 n_gpu_layers', { type: 'number' })}
         ${field('request_timeout_ms', '请求超时 ms', { type: 'number', min: 30000 })}
-        ${field('log_verbosity', '日志等级', { type: 'number' })}
+        ${selectField('log_verbosity', '日志等级', [0, 1, 2, 3, 4])}
+      </div>
+      <div class="settings-callout">
+        <strong>日志等级说明：</strong><br>
+        <strong>0</strong> - disabled：几乎不输出 &nbsp;
+        <strong>1</strong> - info：仅关键事件（启动/停止/模型加载） &nbsp;
+        <strong>2</strong> - warning：+ WARNING 警告<br>
+        <strong>3</strong> - debug：+ 调试详情（token 计算/内存分配/采样参数） &nbsp;
+        <strong>4</strong> - extra：所有级别（开发调试用，日志量极大）
       </div>
       <div class="switch-grid">
         ${switchField('verbose', '详细日志', '排查问题时打开。')}
@@ -1576,7 +1584,15 @@ function renderModernSettingsContent() {
             ${selectField('split_mode', 'Split mode', ['', 'layer', 'row', 'none'])}
             ${field('device', 'Device')}
             ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number' })}
-            ${field('log_verbosity', '日志等级', { type: 'number' })}
+            ${selectField('log_verbosity', '日志等级', [0, 1, 2, 3, 4])}
+          </div>
+          <div class="settings-callout">
+            <strong>日志等级说明：</strong><br>
+            <strong>0</strong> - disabled：几乎不输出 &nbsp;
+            <strong>1</strong> - info：仅关键事件（启动/停止/模型加载） &nbsp;
+            <strong>2</strong> - warning：+ WARNING 警告<br>
+            <strong>3</strong> - debug：+ 调试详情（token 计算/内存分配/采样参数） &nbsp;
+            <strong>4</strong> - extra：所有级别（开发调试用，日志量极大）
           </div>
           <div class="settings-callout">多 GPU 取决于本地 llama.cpp 的编译版本和硬件环境。</div>
         `)}
