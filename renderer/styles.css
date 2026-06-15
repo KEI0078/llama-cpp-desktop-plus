@@ -58,7 +58,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 0 6px 0 10px;
   color: var(--text-secondary);
   font-size: 13px;
   user-select: none;
@@ -848,9 +848,9 @@ button {
 
 .finish-btn {
   min-height: 40px;
-  border: 1px solid #4a305a;
+  border: 1px solid #3a4d30;
   border-radius: 8px;
-  background: #7a5d8a;
+  background: #5d7a4a;
   color: #ffffff;
   padding: 0 16px;
   cursor: pointer;
@@ -3026,7 +3026,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .outline-btn { background: var(--btn-bg); color: var(--btn-text); border-color: var(--line); }
 .theme-dark .primary-btn { background: #5d7a4a; color: #fff; border-color: #3a4d30; }
 .theme-dark .danger-btn { background: #9b3d3d; color: #fff; border-color: #6a2a2a; }
-.theme-dark .finish-btn { background: #7a5d8a; color: #fff; border-color: #4a305a; }
+.theme-dark .finish-btn { background: #5d7a4a; color: #fff; border-color: #3a4d30; }
 .theme-dark .settings-panel { background: var(--surface); }
 .theme-dark .settings-rail { background: var(--sidebar); }
 .theme-dark .settings-stack-card { background: var(--surface); }
