@@ -2405,8 +2405,6 @@ appEl.addEventListener('click', event => {
     state.view = 'chat'
     state.chatMessages = []
     state.currentSessionId = makeSessionId()
-    state.active = 'overview'
-    state.settingsOpen = true
     render({ resetHistoryScroll: true, jumpToBottom: true })
   }
   if (action === 'focus-chat') {
