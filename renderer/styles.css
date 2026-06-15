@@ -3000,3 +3000,93 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .bench-table td, .theme-dark .bench-table th { border-color: var(--line); color: var(--ink); }
 .theme-dark .bench-table th { background: var(--surface-soft); }
 .theme-dark .log-time { color: #58a6ff; }
+
+/* 暗夜主题完整覆盖 */
+.theme-dark, .theme-dark * { border-color: var(--line) !important; }
+.theme-dark { color-scheme: dark; }
+.theme-dark body, .theme-dark .app-shell { background: var(--bg); }
+.theme-dark .drag-region { background: var(--sidebar); }
+.theme-dark .sidebar { background: var(--sidebar); }
+.theme-dark .service-bar { background: var(--surface); }
+.theme-dark .service-left code { background: var(--surface-soft); color: var(--muted); }
+.theme-dark .chat-feed { background: var(--bg); }
+.theme-dark .composer-wrap { background: var(--surface); }
+.theme-dark .composer { background: var(--surface); }
+.theme-dark .composer textarea { background: var(--input-bg); color: var(--ink); }
+.theme-dark .composer-hint { color: var(--muted); }
+.theme-dark .settings-rail { background: var(--sidebar); }
+.theme-dark .settings-panel { background: var(--surface); }
+.theme-dark .settings-stack-card { background: var(--surface); }
+.theme-dark .settings-badge { background: var(--surface-soft); color: var(--muted); }
+.theme-dark .settings-callout { background: var(--surface-soft); color: var(--muted); }
+.theme-dark .settings-note { color: var(--muted); }
+.theme-dark .settings-inline-actions { border-color: var(--line); }
+.theme-dark .settings-mcp-placeholder { background: var(--surface-soft); color: var(--muted); }
+.theme-dark .command-preview { background: var(--surface-soft); }
+.theme-dark .command-preview pre { color: var(--ink); }
+.theme-dark .command-preview.has-error { border-color: var(--danger); }
+.theme-dark .empty-log, .theme-dark .empty-chat { color: var(--muted); }
+.theme-dark .model-info-panel { background: var(--surface); }
+.theme-dark .model-info-head { border-color: var(--line); }
+.theme-dark .model-info-card { background: var(--surface-soft); }
+.theme-dark .model-info-row { color: var(--ink); }
+.theme-dark .model-info-row span { color: var(--muted); }
+.theme-dark .model-template-head { border-color: var(--line); }
+.theme-dark .model-template-card { background: var(--surface-soft); }
+.theme-dark .model-template-card pre { color: var(--ink); }
+.theme-dark .model-pill { background: var(--chip-bg); color: var(--muted); }
+.theme-dark .preview-panel { background: var(--surface); }
+.theme-dark .preview-head { border-color: var(--line); }
+.theme-dark .dialog-backdrop { background: rgba(0,0,0,0.7); }
+.theme-dark .settings-backdrop { background: rgba(0,0,0,0.7); }
+.theme-dark .attach-menu { background: var(--surface); }
+.theme-dark .attach-menu-backdrop { background: transparent; }
+.theme-dark .attach-menu button { color: var(--ink); }
+.theme-dark .attach-menu button:hover { background: var(--surface-soft); }
+.theme-dark .attachment-chip { background: var(--chip-bg); color: var(--ink); }
+.theme-dark .attachment-card { background: var(--surface-soft); }
+.theme-dark .attachment-name { color: var(--muted); }
+.theme-dark .attachment-size { color: var(--muted); }
+.theme-dark .side-bottom { background: var(--sidebar); }
+.theme-dark .status-card { background: var(--surface); }
+.theme-dark .status-card strong { color: var(--ink); }
+.theme-dark .history-item { color: var(--ink); }
+.theme-dark .history-item:hover { background: var(--surface-soft); }
+.theme-dark .history-item-title { color: var(--ink); }
+.theme-dark .history-item-date { color: var(--muted); }
+.theme-dark .history-search input { background: var(--input-bg); color: var(--ink); border-color: var(--line); }
+.theme-dark .history-list { border-color: var(--line); }
+.theme-dark .history-row.active { background: var(--surface-soft); }
+.theme-dark .history-row:hover { background: var(--surface-soft); }
+.theme-dark .history-dialog { background: var(--surface); }
+.theme-dark .history-dialog h2 { color: var(--ink); }
+.theme-dark .history-dialog input { background: var(--input-bg); color: var(--ink); border-color: var(--line); }
+.theme-dark .chat-message { color: var(--ink); }
+.theme-dark .chat-message.user { background: var(--surface-soft); }
+.theme-dark .chat-message.assistant { background: transparent; }
+.theme-dark .chat-image-attachment { border-color: var(--line); }
+.theme-dark .message-meta { color: var(--muted); }
+.theme-dark .toast { background: var(--surface); color: var(--ink); }
+.theme-dark .log-box { background: var(--log-bg); color: var(--log-text); }
+.theme-dark .log-time { color: #58a6ff; }
+.theme-dark .terminal-console { background: var(--log-bg); color: var(--log-text); }
+.theme-dark .terminal-empty { color: var(--muted); }
+.theme-dark .terminal-item { color: var(--ink); }
+.theme-dark .terminal-item.selected { background: var(--surface-soft); }
+.theme-dark .bench-table th { background: var(--surface-soft); color: var(--muted); }
+.theme-dark .bench-table td { color: var(--ink); }
+.theme-dark .bench-chip { background: var(--chip-bg); border-color: var(--line); color: var(--ink); }
+.theme-dark .bench-log { background: #05080c; color: #8b949e; }
+.theme-dark .settings-tabs button { color: var(--muted); }
+.theme-dark .settings-tabs button.active { color: var(--ink); background: var(--surface); }
+.theme-dark .settings-tabs button:hover { color: var(--ink); }
+.theme-dark .switch strong { color: var(--ink); }
+.theme-dark .switch em { color: var(--muted); }
+.theme-dark .field span { color: var(--ink); }
+.theme-dark .field input, .theme-dark .field select, .theme-dark .field textarea { background: var(--input-bg); color: var(--ink); }
+.theme-dark .field .hint { color: var(--muted); }
+.theme-dark select { background: var(--input-bg); color: var(--ink); }
+.theme-dark .chat-screen.empty-chat .empty-hint { color: var(--muted); }
+.theme-dark .chat-screen.empty-chat .empty-hint p { color: var(--muted); }
+.theme-dark .inline-code { background: var(--surface-soft); color: var(--ink); }
+.theme-dark .search-highlight { background: var(--pending); color: var(--ink); }
