@@ -1920,6 +1920,84 @@ function registerIpc() {
     }
     return { ok: true }
   })
+
+  // v1.1：会话管理
+  const sessionsDir = () => path.join(app.getPath('userData'), 'sessions')
+
+  ipcMain.handle('llama:save-session', async (_event, payload) => {
+    if (!payload?.id) return { ok: false, error: 'no id' }
+    const dir = sessionsDir()
+    await mkdir(dir, { recursive: true })
+    await writeFile(path.join(dir, `${payload.id}.json`), JSON.stringify(payload, null, 2), 'utf8')
+    return { ok: true }
+  })
+
+  ipcMain.handle('llama:load-sessions', async () => {
+    const dir = sessionsDir()
+    try {
+      const files = await readdir(dir)
+      const jsons = files.filter(f => f.endsWith('.json')).sort().reverse()
+      const sessions = await Promise.all(jsons.map(async f => {
+        try { return JSON.parse(await readFile(path.join(dir, f), 'utf8')) }
+        catch { return null }
+      }))
+      return { ok: true, sessions: sessions.filter(Boolean) }
+    } catch { return { ok: true, sessions: [] } }
+  })
+
+  ipcMain.handle('llama:delete-session', async (_event, { id }) => {
+    if (!id) return { ok: false }
+    const p = path.join(sessionsDir(), `${id}.json`)
+    try { await require('node:fs').promises.unlink(p) } catch {}
+    return { ok: true }
+  })
+
+  ipcMain.handle('llama:pin-session', async (_event, { id, pinned }) => {
+    const p = path.join(sessionsDir(), `${id}.json`)
+    try {
+      const data = JSON.parse(await readFile(p, 'utf8'))
+      data.pinned = pinned
+      data.updatedAt = new Date().toISOString()
+      await writeFile(p, JSON.stringify(data, null, 2), 'utf8')
+      return { ok: true }
+    } catch { return { ok: false } }
+  })
+
+  ipcMain.handle('llama:archive-session', async (_event, { id, archived, summary }) => {
+    const p = path.join(sessionsDir(), `${id}.json`)
+    try {
+      const data = JSON.parse(await readFile(p, 'utf8'))
+      data.archived = archived
+      if (summary) data.summary = summary
+      data.updatedAt = new Date().toISOString()
+      await writeFile(p, JSON.stringify(data, null, 2), 'utf8')
+      return { ok: true }
+    } catch { return { ok: false } }
+  })
+
+  ipcMain.handle('llama:export-session', async (_event, { id, format }) => {
+    const p = path.join(sessionsDir(), `${id}.json`)
+    try {
+      const session = JSON.parse(await readFile(p, 'utf8'))
+      const lines = [`# ${session.title || '对话记录'}\n`, `> 导出时间：${new Date().toLocaleString('zh-CN')}\n`, '']
+      for (const msg of session.messages || []) {
+        const role = msg.role === 'user' ? '你' : msg.role === 'assistant' ? '模型' : '系统'
+        lines.push(`### ${role}\n`)
+        const text = typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)
+        if (format === 'md') {
+          lines.push(text, '')
+        } else {
+          // txt 格式：纯文本
+          lines.push(text.replace(/<[^>]+>/g, ''), '')
+        }
+      }
+      const content = lines.join('\n')
+      const ext = format === 'md' ? '.md' : '.txt'
+      const filePath = path.join(sessionsDir(), `${id}${ext}`)
+      await writeFile(filePath, content, 'utf8')
+      return { ok: true, content, filePath }
+    } catch (e) { return { ok: false, error: e.message } }
+  })
 }
 
 const gotLock = app.requestSingleInstanceLock()

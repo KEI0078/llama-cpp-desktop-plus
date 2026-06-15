@@ -892,16 +892,17 @@ function renderSidebar() {
     .map(session => `
       <div class="history-row ${session.id === state.currentSessionId ? 'active' : ''}">
         <button type="button" class="history-item" data-session="${escapeHtml(session.id)}" title="${escapeAttribute(session.title || '')}">
-          <strong>${escapeHtml(session.title || '新聊天')}</strong>
+          <strong>${session.pinned ? '📌 ' : ''}${session.archived ? '📦 ' : ''}${escapeHtml(session.title || '新聊天')}</strong>
           <span>${escapeHtml(shortTime(session.updatedAt))}</span>
         </button>
-        <button type="button" class="history-more" data-action="toggle-history-menu" data-session-id="${escapeHtml(session.id)}" title="More">...</button>
+        <button type="button" class="history-more" data-action="toggle-history-menu" data-session-id="${escapeHtml(session.id)}" title="操作">⋯</button>
         ${
           state.historyMenuId === session.id
             ? `<div class="history-menu">
-                <button type="button" data-action="history-edit" data-session-id="${escapeHtml(session.id)}"><span class="history-menu-icon">&#9998;</span>Edit</button>
-                <button type="button" data-action="history-export" data-session-id="${escapeHtml(session.id)}"><span class="history-menu-icon">&#8681;</span>Export</button>
-                <button type="button" class="danger" data-action="history-delete" data-session-id="${escapeHtml(session.id)}"><span class="history-menu-icon">&#128465;</span>Delete</button>
+                <button type="button" data-action="history-pin" data-session-id="${escapeHtml(session.id)}"><span class="history-menu-icon">📌</span>${session.pinned ? '取消置顶' : '置顶'}</button>
+                <button type="button" data-action="history-archive" data-session-id="${escapeHtml(session.id)}"><span class="history-menu-icon">📦</span>${session.archived ? '取消归档' : '归档'}</button>
+                <button type="button" data-action="history-export" data-session-id="${escapeHtml(session.id)}"><span class="history-menu-icon">📥</span>导出</button>
+                <button type="button" class="danger" data-action="history-delete" data-session-id="${escapeHtml(session.id)}"><span class="history-menu-icon">🗑️</span>删除</button>
               </div>`
             : ''
         }
@@ -2068,6 +2069,38 @@ appEl.addEventListener('click', event => {
   if (action === 'toggle-history-menu') {
     state.historyMenuId = state.historyMenuId === target.dataset.sessionId ? '' : target.dataset.sessionId
     render({ preserveChatScroll: true })
+  }
+  if (action === 'history-pin') {
+    const sid = target.dataset.sessionId
+    const session = state.sessions.find(s => s.id === sid)
+    if (session) {
+      session.pinned = !session.pinned
+      window.llamaDesktop.pinSession({ id: sid, pinned: session.pinned }).catch(() => {})
+      render({ preserveChatScroll: true })
+    }
+  }
+  if (action === 'history-archive') {
+    const sid = target.dataset.sessionId
+    const session = state.sessions.find(s => s.id === sid)
+    if (session) {
+      session.archived = !session.archived
+      window.llamaDesktop.archiveSession({ id: sid, archived: session.archived }).catch(() => {})
+      render({ preserveChatScroll: true })
+    }
+  }
+  if (action === 'history-delete') {
+    const sid = target.dataset.sessionId
+    state.sessions = state.sessions.filter(s => s.id !== sid)
+    if (state.currentSessionId === sid) {
+      state.currentSessionId = makeSessionId()
+      state.chatMessages = []
+    }
+    window.llamaDesktop.deleteSession(sid).catch(() => {})
+    render({ preserveChatScroll: true })
+  }
+  if (action === 'history-export') {
+    const sid = target.dataset.sessionId
+    handleExportSession(sid)
   }
   if (action === 'open-model-info') {
     void openModelInfo()

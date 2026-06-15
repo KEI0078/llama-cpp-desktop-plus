@@ -49,6 +49,14 @@ contextBridge.exposeInMainWorld('llamaDesktop', {
   saveModelConfig: payload => ipcRenderer.invoke('llama:save-model-config', payload),
   loadModelConfig: () => ipcRenderer.invoke('llama:load-model-config'),
 
+  // v1.1：会话管理
+  saveSession: payload => ipcRenderer.invoke('llama:save-session', payload),
+  loadSessions: () => ipcRenderer.invoke('llama:load-sessions'),
+  deleteSession: id => ipcRenderer.invoke('llama:delete-session', { id }),
+  pinSession: payload => ipcRenderer.invoke('llama:pin-session', payload),
+  archiveSession: payload => ipcRenderer.invoke('llama:archive-session', payload),
+  exportSession: payload => ipcRenderer.invoke('llama:export-session', payload),
+
   // 事件订阅
   onEvent: callback => {
     const handler = (_event, payload) => callback(payload)
