@@ -1745,12 +1745,12 @@ function render(options = {}) {
 
 function setToast(message) {
   state.toast = message
-  render()
+  render({ preserveChatScroll: true })
   window.clearTimeout(setToast.timer)
   setToast.timer = window.setTimeout(() => {
     state.toast = ''
-    render()
-  }, 2800)
+    render({ preserveChatScroll: true })
+  }, 3000)
 }
 
 function patchFromBackend(payload) {
@@ -2416,23 +2416,23 @@ appEl.addEventListener('click', event => {
       state.attachments = message.attachments || []
       state.chatMessages.splice(index, 1)
       saveCurrentSession()
-      render()
+      render({ preserveChatScroll: true })
       setTimeout(() => document.querySelector('[data-chat-input]')?.focus(), 0)
     }
   }
   if (action === 'delete-message') {
     state.chatMessages.splice(Number(target.dataset.index), 1)
     saveCurrentSession()
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'retry-message') void retryMessage(Number(target.dataset.index))
   if (action === 'close-settings') {
     state.settingsOpen = false
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'toggle-sidebar') {
     state.sidebarCollapsed = !state.sidebarCollapsed
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'new-chat') {
     state.view = 'chat'
