@@ -786,7 +786,7 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--surface);
   min-width: 0;
 }
 
@@ -869,7 +869,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 50;
-  background: rgba(14, 16, 12, 0.32);
+  background: var(--hover-overlay);
   backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
@@ -2028,7 +2028,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: rgba(12, 14, 11, 0.32);
+  background: var(--hover-overlay);
   backdrop-filter: blur(2px);
 }
 
@@ -2349,7 +2349,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   position: fixed;
   inset: 0;
   z-index: 110;
-  background: rgba(15, 17, 13, 0.42);
+  background: var(--hover-overlay);
   backdrop-filter: blur(1px);
 }
 
