@@ -1992,7 +1992,7 @@ async function sendChat() {
   state.chatBusy = true
   state.view = 'chat'
   saveCurrentSession()
-  render()
+  render({ jumpToBottom: true })
 
   try {
     const startedAt = performance.now()
@@ -2059,7 +2059,7 @@ async function retryMessage(index) {
   })
   state.streamRequestId = requestId
   state.chatBusy = true
-  render()
+  render({ jumpToBottom: true })
 
   try {
     const startedAt = performance.now()
