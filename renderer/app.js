@@ -1915,7 +1915,7 @@ async function save() {
     setToast(error.message || String(error))
   } finally {
     state.busy = false
-    render()
+    render({ preserveChatScroll: true })
   }
 }
 
@@ -1930,7 +1930,7 @@ async function start() {
     setToast(error.message || String(error))
   } finally {
     state.busy = false
-    render()
+    render({ preserveChatScroll: true })
   }
 }
 
@@ -1944,7 +1944,7 @@ async function stop() {
     setToast(error.message || String(error))
   } finally {
     state.busy = false
-    render()
+    render({ preserveChatScroll: true })
   }
 }
 
@@ -2119,7 +2119,7 @@ async function pick(fieldName, kind) {
       state.config.llama_server_path = `${selected.replace(/[\\/]+$/, '')}\\llama-server.exe`
     }
     state.dirty = true
-    render()
+    render({ preserveChatScroll: true })
   }
 }
 
@@ -2142,7 +2142,7 @@ async function pickAttachment(kind) {
     } else {
       state.attachmentMenuOpen = false
       state.attachmentMenuPosition = null
-      render()
+      render({ preserveChatScroll: true })
     }
   } catch (error) {
     setToast(error.message || String(error))
@@ -2158,7 +2158,7 @@ appEl.addEventListener('click', event => {
     state.chatInput = seed
     state.active = 'chat'
     state.view = 'chat'
-    render()
+    render({ preserveChatScroll: true })
     return
   }
 
@@ -2173,7 +2173,7 @@ appEl.addEventListener('click', event => {
   if (section) {
     state.active = section
     state.settingsOpen = true
-    render()
+    render({ preserveChatScroll: true })
     return
   }
 
@@ -2444,7 +2444,7 @@ appEl.addEventListener('click', event => {
     }
     state.attachmentMenuOpen = false
     state.attachmentMenuPosition = null
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'toggle-theme') {
     state.config = { ...state.config, dark_theme: !state.config?.dark_theme }
@@ -2458,13 +2458,13 @@ appEl.addEventListener('click', event => {
     } else {
       openAttachmentMenu(target)
     }
-    render()
+    render({ preserveChatScroll: true })
     return
   }
   if (action === 'close-attachment-menu') {
     state.attachmentMenuOpen = false
     state.attachmentMenuPosition = null
-    render()
+    render({ preserveChatScroll: true })
     return
   }
   if (action === 'copy-code') {
@@ -2513,11 +2513,11 @@ appEl.addEventListener('click', event => {
     state.attachmentMenuOpen = false
     state.attachmentMenuPosition = null
     saveCurrentSession()
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'remove-attachment') {
     state.attachments.splice(Number(target.dataset.index), 1)
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'copy-message') {
     const message = state.chatMessages[Number(target.dataset.index)]
@@ -2575,14 +2575,14 @@ appEl.addEventListener('click', event => {
     state.active = 'chat'
     state.view = 'chat'
     state.sidebarPanel = 'chats'
-    render()
+    render({ preserveChatScroll: true })
     setTimeout(() => document.querySelector('[data-chat-input]')?.focus(), 0)
   }
   if (action === 'show-terminal') {
     state.view = 'terminal'
     state.sidebarPanel = 'chats'
     state.attachmentMenuOpen = false
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'show-settings-page') {
     // v1.0：打开 Qiao 抽屉的「参数面板」tab
@@ -2590,7 +2590,7 @@ appEl.addEventListener('click', event => {
     state.settingsOpen = true
     state.view = 'chat'
     state.sidebarPanel = 'chats'
-    render()
+    render({ preserveChatScroll: true })
     return
   }
   if (action === 'open-log-settings') {
@@ -2598,7 +2598,7 @@ appEl.addEventListener('click', event => {
     state.settingsOpen = true
     state.view = 'terminal'
     state.sidebarPanel = 'chats'
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'new-chat') {
     startFreshSession()
@@ -2809,7 +2809,7 @@ async function init() {
     // v1.0：预加载 params 数据（懒加载 JSON + system.json）
     await loadParamsData()
 
-    render()
+    render({ preserveChatScroll: true })
   } catch (error) {
     appEl.innerHTML = `<div class="boot">${escapeHtml(error.message || String(error))}</div>`
   }
@@ -2848,7 +2848,7 @@ async function init() {
       applyStreamDelta(payload)
       return
     }
-    render()
+    render({ preserveChatScroll: true })
   })
 }
 
