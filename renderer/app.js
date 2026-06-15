@@ -1329,21 +1329,23 @@ function renderSettingsContent() {
     ${renderSettingsSection('runtime', `
       <div class="settings-note">给外部客户端接入时，通常保留 host=0.0.0.0 和 port=8080。</div>
       <div class="form-grid two">
-        ${field('host', 'Host')}
-        ${field('port', 'Port', { type: 'number', min: 1 })}
-        ${field('ctx_size', '上下文长度 ctx_size', { type: 'number', min: 1 })}
-        ${field('n_predict', '输出长度 n_predict', { type: 'number' })}
-        ${field('n_gpu_layers', 'GPU 层数 n_gpu_layers', { type: 'number' })}
-        ${field('request_timeout_ms', '请求超时 ms', { type: 'number', min: 30000 })}
+        ${field('host', 'Host', { hint: '监听地址，0.0.0.0 = 全部网卡' })}
+        ${field('port', 'Port', { type: 'number', min: 1, hint: 'llama-server 监听端口' })}
+        ${field('ctx_size', '上下文长度 ctx_size', { type: 'number', min: 1, hint: '上下文窗口 tokens 数（4096/8192/32768/131072）' })}
+        ${field('n_predict', '输出长度 n_predict', { type: 'number', hint: '单次响应最大 tokens，-1 = 不限' })}
+        ${field('n_gpu_layers', 'GPU 层数 n_gpu_layers', { type: 'number', hint: '99 = 全部 GPU 卸载，0 = 纯 CPU' })}
+        ${field('request_timeout_ms', '请求超时 ms', { type: 'number', min: 30000, hint: 'HTTP 请求超时（默认 600000 = 10 分钟）' })}
         ${selectField('log_verbosity', '日志等级', [0, 1, 2, 3, 4])}
       </div>
       <div class="settings-callout">
-        <strong>日志等级说明：</strong><br>
-        <strong>0</strong> - disabled：几乎不输出 &nbsp;
-        <strong>1</strong> - info：仅关键事件（启动/停止/模型加载） &nbsp;
-        <strong>2</strong> - warning：+ WARNING 警告<br>
-        <strong>3</strong> - debug：+ 调试详情（token 计算/内存分配/采样参数） &nbsp;
-        <strong>4</strong> - extra：所有级别（开发调试用，日志量极大）
+        <strong>字段说明：</strong><br>
+        <strong>Host</strong> 监听地址（0.0.0.0 = 所有网卡，127.0.0.1 = 仅本机）<br>
+        <strong>Port</strong> HTTP 端口（默认 8080，避免与 80/443 冲突）<br>
+        <strong>ctx_size</strong> 上下文窗口大小，决定能塞进多少历史对话（4K/8K/32K/128K）<br>
+        <strong>n_predict</strong> 单次响应最大 token 数，-1 表示不限制（受 ctx_size 约束）<br>
+        <strong>n_gpu_layers</strong> 卸载到 GPU 的层数，显存不够时调小<br>
+        <strong>request_timeout_ms</strong> 客户端请求最长等待时间<br>
+        <strong>日志等级</strong> 控制 llama-server 输出的详细程度
       </div>
       <div class="switch-grid">
         ${switchField('verbose', '详细日志', '排查问题时打开。')}
@@ -1356,27 +1358,48 @@ function renderSettingsContent() {
     ${renderSettingsSection('sampling', `
       <div class="settings-note">这些参数影响回答风格和随机性。</div>
       <div class="form-grid two">
-        ${field('temp', 'Temperature', { type: 'number' })}
-        ${field('top_k', 'Top-K', { type: 'number' })}
-        ${field('top_p', 'Top-P', { type: 'number' })}
-        ${field('min_p', 'Min-P', { type: 'number' })}
-        ${field('presence_penalty', 'Presence penalty', { type: 'number' })}
-        ${field('repeat_penalty', 'Repeat penalty', { type: 'number' })}
+        ${selectField('temp', 'Temperature 温度', [0, 0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0, 1.2, 1.5, 2.0])}
+        ${selectField('top_k', 'Top-K', [0, 5, 10, 20, 40, 60, 80, 100, 200])}
+        ${selectField('top_p', 'Top-P', [0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 0.95, 0.99, 1.0])}
+        ${selectField('min_p', 'Min-P', [0, 0.01, 0.05, 0.1, 0.15, 0.2])}
+        ${selectField('presence_penalty', 'Presence penalty', [0, 0.1, 0.3, 0.5, 1.0, 1.5, 2.0])}
+        ${selectField('repeat_penalty', 'Repeat penalty', [0.5, 1.0, 1.05, 1.1, 1.2, 1.3, 1.5, 2.0])}
+      </div>
+      <div class="settings-callout">
+        <strong>采样参数说明：</strong><br>
+        <strong>Temperature</strong> 随机性。0 = 确定性最强，1 = 标准，2 = 自由发挥<br>
+        <strong>Top-K</strong> 仅从前 K 个候选 token 中采样。0 = 不限制，越小越保守<br>
+        <strong>Top-P</strong> 累计概率阈值。越小越精确，越大越多样<br>
+        <strong>Min-P</strong> 最小概率阈值，过滤掉概率太低的 token<br>
+        <strong>Presence penalty</strong> 出现过就降权（鼓励话题多样性）<br>
+        <strong>Repeat penalty</strong> 重复 token 降权（避免循环重复）
       </div>
     `)}
 
     ${renderSettingsSection('system', `
       <div class="settings-note">没有明确需求时可以留空，由 llama.cpp 自动决定。</div>
       <div class="form-grid two">
-        ${field('threads', 'Threads', { type: 'number' })}
+        ${selectField('threads', 'Threads CPU 线程', ['', 0, 1, 2, 4, 6, 8, 12, 16, 24, 32])}
         ${selectField('threads_batch', 'Threads batch', ['', 1, 2, 4, 6, 8, 12, 16, 24, 32])}
-        ${field('batch_size', 'Batch size', { type: 'number' })}
-        ${field('ubatch_size', 'Ubatch size', { type: 'number' })}
+        ${selectField('batch_size', 'Batch size', ['', 256, 512, 1024, 2048, 4096, 8192])}
+        ${selectField('ubatch_size', 'Ubatch size', ['', 32, 64, 128, 256, 512, 1024])}
         ${selectField('split_mode', 'Split mode', ['', 'layer', 'row', 'none'])}
-        ${field('tensor_split', 'Tensor split')}
+        ${field('tensor_split', 'Tensor split', { hint: '多 GPU 按比例切分，如 7,3 表示 GPU 0 跑 70%' })}
         ${selectField('device', 'Device', ['auto', 'cuda', 'vulkan', 'cpu', 'hip', 'metal'])}
         ${renderMainGpuSelect()}
-        ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number' })}
+        ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number', hint: 'MoE 模型保留在 CPU 的层数（显存不够时设 4-8）' })}
+      </div>
+      <div class="settings-callout">
+        <strong>线程与设备说明：</strong><br>
+        <strong>Threads</strong> CPU 线程数（空=自动，0=全部核心）<br>
+        <strong>Threads batch</strong> prefill 阶段并行线程<br>
+        <strong>Batch size</strong> 单次处理的 token 数（越大越快但越耗显存）<br>
+        <strong>Ubatch size</strong> 物理批次大小（必须 ≤ batch_size）<br>
+        <strong>Split mode</strong> 多 GPU 拆分方式：layer（按层）/ row（按行）/ none（不切）<br>
+        <strong>Tensor split</strong> 多 GPU 比例分配，如 7,3 = GPU0 跑 70%<br>
+        <strong>Device</strong> llama.cpp 后端：auto/cuda(英伟达)/vulkan(通用 GPU)/metal(Apple)/hip(AMD)<br>
+        <strong>主 GPU</strong> 主要工作的 GPU 编号（多卡环境选最快的）<br>
+        <strong>n_cpu_moe</strong> MoE 模型走 CPU 的层数
       </div>
       <div class="switch-grid">${switchField('cpu_moe', 'MoE 权重保留在 CPU', '显存紧张时有用。')}</div>
     `)}
@@ -1491,15 +1514,24 @@ function renderModernSettingsContent() {
         ${renderModernSettingsCard('运行参数', '桌面端直连 llama.cpp 时，这一组就是最常用的核心参数。', `
           <div class="form-grid two">
             ${selectField('launch_mode', '启动方式', ['direct', 'launcher'], 'direct = 直接调用 llama-server.exe；launcher = 兼容旧启动器')}
-            ${field('host', 'Host')}
-            ${field('port', 'Port', { type: 'number', min: 1 })}
+            ${field('host', 'Host', { hint: '监听地址，0.0.0.0 = 全部网卡' })}
+            ${field('port', 'Port', { type: 'number', min: 1, hint: 'llama-server 监听端口' })}
             ${renderCtxSizeSelect()}
-            ${field('n_predict', '最大输出 n_predict', { type: 'number' })}
-            ${field('n_gpu_layers', 'GPU 层数', { type: 'number' })}
-            ${field('request_timeout_ms', '请求超时 ms', { type: 'number', min: 30000 })}
+            ${field('n_predict', '最大输出 n_predict', { type: 'number', hint: '单次响应最大 tokens，-1 = 不限' })}
+            ${field('n_gpu_layers', 'GPU 层数', { type: 'number', hint: '99 = 全部 GPU 卸载，0 = 纯 CPU' })}
+            ${field('request_timeout_ms', '请求超时 ms', { type: 'number', min: 30000, hint: 'HTTP 请求超时（默认 600000 = 10 分钟）' })}
             ${renderOverviewParams()}
           </div>
-          <div class="settings-callout">32GB 内存建议先用 32768 或 65536 上下文。131072 这类超长上下文会显著增加 KV cache，占满内存是正常风险。</div>
+          <div class="settings-callout">
+            <strong>运行参数说明：</strong><br>
+            <strong>启动方式</strong> direct（直接调用 llama-server.exe）或 launcher（兼容旧启动器）<br>
+            <strong>Host</strong> 监听地址（0.0.0.0 = 所有网卡）<br>
+            <strong>Port</strong> HTTP 端口（默认 8080）<br>
+            <strong>上下文长度</strong> 上下文窗口 tokens 数（4096/8192/32768/131072）<br>
+            <strong>n_predict</strong> 单次响应最大 token 数，-1 = 不限<br>
+            <strong>GPU 层数</strong> 卸载到 GPU 的层数，99=全部，0=纯 CPU<br>
+            <strong>请求超时</strong> 客户端请求最长等待时间
+          </div>
         `)}
         ${renderModernSettingsCard('已检测的显卡', '启动 llama-server 后自动从输出中解析。', `
           <div id="gpu-info-display" class="gpu-info-box">
@@ -1580,21 +1612,20 @@ function renderModernSettingsContent() {
       <div class="settings-stack">
         ${renderModernSettingsCard('线程与设备', '批处理、线程和 GPU 分配都放在开发者页。', `
           <div class="form-grid two">
-            ${field('threads_batch', 'Threads batch', { type: 'number' })}
-            ${selectField('split_mode', 'Split mode', ['', 'layer', 'row', 'none'])}
-            ${field('device', 'Device')}
-            ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number' })}
+            ${selectField('threads_batch', 'Threads batch', ['', 1, 2, 4, 6, 8, 12, 16, 24, 32], 'prefill 阶段并行线程')}
+            ${selectField('split_mode', 'Split mode', ['', 'layer', 'row', 'none'], '多 GPU 拆分：layer=按层 / row=按行 / none=不切')}
+            ${selectField('device', 'Device', ['auto', 'cuda', 'vulkan', 'cpu', 'hip', 'metal'], 'llama.cpp 后端：auto/cuda/vulkan/metal/hip/cpu')}
+            ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number', hint: 'MoE 模型保留在 CPU 的层数（显存不够时设 4-8）' })}
             ${selectField('log_verbosity', '日志等级', [0, 1, 2, 3, 4])}
           </div>
           <div class="settings-callout">
-            <strong>日志等级说明：</strong><br>
-            <strong>0</strong> - disabled：几乎不输出 &nbsp;
-            <strong>1</strong> - info：仅关键事件（启动/停止/模型加载） &nbsp;
-            <strong>2</strong> - warning：+ WARNING 警告<br>
-            <strong>3</strong> - debug：+ 调试详情（token 计算/内存分配/采样参数） &nbsp;
-            <strong>4</strong> - extra：所有级别（开发调试用，日志量极大）
+            <strong>线程与设备说明：</strong><br>
+            <strong>Threads batch</strong> prefill 阶段并行线程数<br>
+            <strong>Split mode</strong> 多 GPU 拆分方式：layer（按层）/ row（按行）/ none（不切）<br>
+            <strong>Device</strong> llama.cpp 后端：auto/cuda(英伟达)/vulkan(通用)/metal(Apple)/hip(AMD)/cpu<br>
+            <strong>n_cpu_moe</strong> MoE 模型走 CPU 的层数<br>
+            <strong>日志等级</strong> 控制 llama-server 输出的详细程度（0-4）
           </div>
-          <div class="settings-callout">多 GPU 取决于本地 llama.cpp 的编译版本和硬件环境。</div>
         `)}
         ${renderModernSettingsCard('命令与脚本', '查看完整启动命令，或保存为可双击运行的脚本。', `
           <div class="form-grid single">
