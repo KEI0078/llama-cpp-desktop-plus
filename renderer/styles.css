@@ -27,34 +27,34 @@
   --card-header-bg: #f7faf7;
 }
 
-/* 深蓝紫暗夜主题 */
+/* Apple 暗色模式 (macOS Sonoma / iOS 17) */
 .theme-dark {
-  --bg: #0d1117;
-  --sidebar: #161b22;
-  --surface: #1c2333;
-  --surface-soft: #232b3d;
-  --ink: #e6edf3;
-  --muted: #8b949e;
-  --line: #30363d;
-  --line-strong: #484f58;
-  --green: #58a6ff;
-  --green-soft: #0d2538;
-  --green-line: #1c4370;
-  --danger: #f85149;
-  --danger-soft: #2d1215;
-  --pending: #d29922;
-  --shadow: 0 18px 55px rgba(0, 0, 0, 0.4);
-  --btn-bg: #30363d;
-  --btn-text: #e6edf3;
-  --btn-primary: #1f6feb;
+  --bg: #000000;
+  --sidebar: #1c1c1e;
+  --surface: #1c1c1e;
+  --surface-soft: #2c2c2e;
+  --ink: #ffffff;
+  --muted: #ebebf599;
+  --line: #38383a;
+  --line-strong: #48484a;
+  --green: #30d158;
+  --green-soft: #0a3d1c;
+  --green-line: #1c5a2e;
+  --danger: #ff453a;
+  --danger-soft: #3a0e0c;
+  --pending: #ffd60a;
+  --shadow: 0 18px 55px rgba(0, 0, 0, 0.6);
+  --btn-bg: #2c2c2e;
+  --btn-text: #ffffff;
+  --btn-primary: #0a84ff;
   --btn-primary-text: #ffffff;
-  --btn-danger: #da3633;
+  --btn-danger: #ff453a;
   --btn-danger-text: #ffffff;
-  --input-bg: #0d1117;
-  --log-bg: #0d1117;
-  --log-text: #c9d1d9;
-  --chip-bg: #21262d;
-  --card-header-bg: #161b22;
+  --input-bg: #1c1c1e;
+  --log-bg: #000000;
+  --log-text: #ebebf5;
+  --chip-bg: #2c2c2e;
+  --card-header-bg: #1c1c1e;
 }
 
 * {
@@ -2983,7 +2983,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .drag-region { background: var(--sidebar); border-bottom-color: var(--line); }
 .theme-dark .sidebar { background: var(--sidebar); border-right-color: var(--line); }
 .theme-dark .composer textarea { background: var(--input-bg); color: var(--ink); }
-.theme-dark .bench-log { background: #05080c; color: #8b949e; }
+.theme-dark .bench-log { background: #000; color: #ebebf599; }
 .theme-dark .settings-callout { background: var(--surface-soft); border-color: var(--line); }
 .theme-dark .settings-note { color: var(--muted); }
 .theme-dark .command-preview { background: var(--surface-soft); border-color: var(--line); }
@@ -2999,7 +2999,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .model-chip-label { color: var(--ink); }
 .theme-dark .bench-table td, .theme-dark .bench-table th { border-color: var(--line); color: var(--ink); }
 .theme-dark .bench-table th { background: var(--surface-soft); }
-.theme-dark .log-time { color: #58a6ff; }
+.theme-dark .log-time { color: #0a84ff; }
 
 /* 暗夜主题完整覆盖 */
 .theme-dark, .theme-dark * { border-color: var(--line); }
@@ -3080,11 +3080,11 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .bench-table th { background: var(--surface-soft); color: var(--muted); }
 .theme-dark .bench-table td { color: var(--ink); }
 .theme-dark .bench-chip { background: var(--chip-bg); border-color: var(--line); color: var(--ink); }
-.theme-dark .bench-log { background: #05080c; color: #8b949e; }
+.theme-dark .bench-log { background: #000; color: #ebebf599; }
 .theme-dark .chat-screen.empty-chat .empty-hint { color: var(--muted); }
 .theme-dark .model-info-row { color: var(--ink); }
 .theme-dark .model-info-row span { color: var(--muted); }
-.theme-dark .log-time { color: #58a6ff; }
+.theme-dark .log-time { color: #0a84ff; }
 .theme-dark .side-action.active { color: var(--green); }
 .theme-toggle .theme-icon { width: 20px; height: 20px; display: block; pointer-events: none; }
 
@@ -3186,7 +3186,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .empty-hint { color: var(--muted) !important; }
 .theme-dark .empty-hint p { color: var(--muted) !important; }
 .theme-dark .log-box { background: var(--log-bg) !important; color: var(--log-text) !important; }
-.theme-dark .bench-log { background: #05080c !important; color: #8b949e !important; }
+.theme-dark .bench-log { background: #000 !important; color: #ebebf599 !important; }
 .theme-dark .bench-chip { background: var(--chip-bg) !important; border-color: var(--line) !important; color: var(--ink) !important; }
 .theme-dark .model-chip { background: var(--chip-bg) !important; color: var(--ink) !important; }
 .theme-dark .attachment-chip { background: var(--chip-bg) !important; color: var(--ink) !important; }
