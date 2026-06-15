@@ -1373,14 +1373,7 @@ function renderSettingsContent() {
     `)}
 
     ${renderSettingsSection('logs', `
-      <div class="settings-note">ANSI 颜色码会被过滤，方便直接看真正的 llama.cpp 输出。</div>
-      <div class="log-box" id="logBox">
-        ${
-          visibleLogs().length
-            ? visibleLogs().map(entry => renderLogRow(entry, 'log-entry')).join('')
-            : '<div class="empty-log">还没有日志。启动服务后会在这里显示。</div>'
-        }
-      </div>
+      <div class="settings-note">测速数据在下方查看。完整服务端日志请点侧边栏「终端日志」。</div>
     `)}
 
     ${state.active === 'chat' ? `
