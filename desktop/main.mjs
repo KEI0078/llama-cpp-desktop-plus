@@ -1115,6 +1115,18 @@ function createTray() {
   updateTrayMenu()
 }
 
+// v1.1：根据当前配置设置窗口标题栏颜色
+async function applyTitleBarOverlay() {
+  if (!mainWindow || mainWindow.isDestroyed()) return
+  try {
+    const config = await loadConfig()
+    mainWindow.setTitleBarOverlay(config.dark_theme
+      ? { color: '#1c1c1e', symbolColor: '#ffffff' }
+      : { color: '#f7f8f5', symbolColor: '#2b2922' }
+    )
+  } catch (e) { /* ignore */ }
+}
+
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 1380,
@@ -1139,8 +1151,10 @@ function createMainWindow() {
     show: false,
   })
 
+  // v1.1：先设置暗色标题栏（深紫黑），等待 ready-to-show 后再根据配置调整
   mainWindow.once('ready-to-show', () => {
     mainWindow?.show()
+    applyTitleBarOverlay()
   })
 
   mainWindow.on('close', event => {
