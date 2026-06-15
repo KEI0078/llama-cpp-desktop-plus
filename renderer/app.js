@@ -582,20 +582,45 @@ function loadSessions() {
   } catch {
     state.sessions = []
   }
+  // v1.1：从 IPC 加载（补充置顶/归档等字段）
+  window.llamaDesktop.loadSessions().then(result => {
+    if (!result?.ok || !result.sessions?.length) return
+    for (const remote of result.sessions) {
+      const idx = state.sessions.findIndex(s => s.id === remote.id)
+      if (idx >= 0) {
+        Object.assign(state.sessions[idx], remote)
+        state.sessions[idx].messages = state.sessions[idx].messages || remote.messages || []
+      } else {
+        state.sessions.unshift(remote)
+      }
+    }
+    render({ preserveChatScroll: true })
+  }).catch(() => {})
 }
 
 function persistSessions() {
-  localStorage.setItem('llama.cpp.desktop.sessions', JSON.stringify(state.sessions.slice(0, 80)))
+  try {
+    localStorage.setItem('llama.cpp.desktop.sessions', JSON.stringify(state.sessions.slice(0, 80)))
+    for (const session of state.sessions.slice(0, 10)) {
+      if (session.messages?.length) {
+        window.llamaDesktop.saveSession(session).catch(() => {})
+      }
+    }
+  } catch {}
 }
 
 function saveCurrentSession() {
   if (!state.currentSessionId || state.chatMessages.length === 0) return
   const now = Date.now()
+  const prev = state.sessions.find(s => s.id === state.currentSessionId)
   const next = {
     id: state.currentSessionId,
     title: titleFromMessages(state.chatMessages),
     messages: state.chatMessages,
     updatedAt: now,
+    pinned: prev?.pinned || false,
+    archived: prev?.archived || false,
+    summary: prev?.summary || '',
   }
   const existing = state.sessions.findIndex(session => session.id === state.currentSessionId)
   if (existing >= 0) {
@@ -603,7 +628,11 @@ function saveCurrentSession() {
   } else {
     state.sessions.unshift(next)
   }
-  state.sessions.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
+  state.sessions.sort((a, b) => {
+    if (a.pinned && !b.pinned) return -1
+    if (!a.pinned && b.pinned) return 1
+    return (b.updatedAt || 0) - (a.updatedAt || 0)
+  })
   persistSessions()
 }
 
