@@ -420,13 +420,13 @@ button {
   display: grid;
   place-items: center;
   background: var(--bg-soft);
-  color: var(--green);
+  color: var(--text-secondary);
   font-size: 12px;
   font-weight: 800;
 }
 
 .message.user .avatar {
-  background: var(--green-soft);
+  background: var(--bg-soft);
 }
 
 .message.system .avatar {
@@ -1063,9 +1063,9 @@ button {
 }
 
 .settings-tabs button.active {
-  border-color: var(--green-line);
-  background: var(--green-soft);
-  color: var(--green);
+  border-color: var(--line-strong);
+  background: var(--surface-soft);
+  color: var(--ink);
 }
 */
 
@@ -1216,14 +1216,14 @@ button {
 }
 
 .pill.good {
-  border-color: var(--green-line);
-  background: var(--green-soft);
-  color: var(--green);
+  border-color: var(--line-strong);
+  background: var(--surface-soft);
+  color: var(--text-secondary);
 }
 
 .pill.warn {
   border-color: var(--pending);
-  background: var(--green-soft);
+  background: var(--danger-soft);
   color: var(--pending);
 }
 
