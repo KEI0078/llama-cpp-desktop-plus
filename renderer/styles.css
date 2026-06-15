@@ -2341,18 +2341,22 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .terminal-screen .terminal-console {
-  min-height: 0;
-  border: 1px solid #222;
-  border-radius: 8px;
-  background: #0c0c0c;
-  color: var(--text-tertiary);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
-  padding: 14px 16px;
-  font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
-  font-size: 13px;
-  line-height: 1.5;
+  min-height: 420px;
+  max-height: calc(100vh - 260px);
+  border: 0;
+  border-radius: 0;
+  background: #11140f;
+  color: var(--ink);
+  box-shadow: none;
+  padding: 10px 12px;
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.25;
   white-space: pre-wrap;
   overflow: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 
 .terminal-line {
