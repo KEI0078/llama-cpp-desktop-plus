@@ -1471,7 +1471,6 @@ function renderModernSettingsContent() {
             ${switchField('show_raw_output', '显示原始输出', '排查模板和思考模式时使用。')}
             ${switchField('webui', '保留 llama.cpp Web UI', '保留浏览器页入口，方便双开调试。')}
             ${switchField('verbose', '显示详细日志', '输出更多服务端信息，便于排查。')}
-            ${switchField('dark_theme', '暗夜主题', '深蓝紫色调暗色界面，适合夜间使用。')}
           </div>
         `)}
       </div>
@@ -1683,6 +1682,7 @@ function render(options = {}) {
   appEl.innerHTML = `
     <div class="drag-region">
       <button type="button" class="sidebar-toggle" data-action="toggle-sidebar" title="${state.sidebarCollapsed ? '显示侧边栏' : '隐藏侧边栏'}">${renderSidebarToggleIcon()}</button>
+      <button type="button" class="theme-toggle" data-action="toggle-theme" title="${state.config?.dark_theme ? '切换日间主题' : '切换暗夜主题'}">${state.config?.dark_theme ? '🌙' : '☀️'}</button>
       <button type="button" class="gear-btn" data-action="toggle-settings" title="打开设置">${renderGearIcon()}</button>
     </div>
     <div class="app-shell ${state.sidebarCollapsed ? 'sidebar-collapsed' : ''}">
@@ -2291,6 +2291,11 @@ appEl.addEventListener('click', event => {
     }
     state.attachmentMenuOpen = false
     state.attachmentMenuPosition = null
+    render()
+  }
+  if (action === 'toggle-theme') {
+    state.config = { ...state.config, dark_theme: !state.config?.dark_theme }
+    state.dirty = true
     render()
   }
   if (action === 'toggle-attachment-menu') {
