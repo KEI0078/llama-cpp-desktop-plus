@@ -52,17 +52,41 @@
 - **CPU 多线程测试**：1~16 线程勾选遍历，找最优线程数
 - **llama-bench 基准**：调用 llama-bench 做硬件性能测试
 - **停止按钮**：可强制中断正在运行的测试
-- **实时日志**：测试输出实时显示在日志窗口
-
-### 📂 模型扫描
-- 扫描目录下所有 .gguf 文件
-- 智能分类：主模型 / mmproj 投影 / MTP(mtp) draft
-- 扫描后自动填入路径，未找到则清空
-
-### 📝 脚本与配置
-- **保存/加载启动脚本**：生成 .bat（Windows）/ .sh（Linux）
 - **模型配置保存/加载**：存为 .json，一键切换不同模型参数
-- **解析参数按钮**：手动刷新启动命令
+- **参数解析按钮**：手动刷新启动命令
+
+## v1.1.0 新增（2026-06-16）
+
+### 🌙 暗夜主题（Apple 暗色模式）
+- 纯黑 `#000` 主背景 + 深灰卡片 `#1c1c1e` + 系统蓝 `#0a84ff`
+- 顶部栏 ☀️/🌙 透明 PNG 按钮切换，暗夜自动反相
+- macOS `titleBarStyle: 'hiddenInset'` 隐藏红黄绿按钮
+- Windows `titleBarOverlay` 动态切换（日间浅色/暗夜深色）
+
+### 💬 会话管理
+- 置顶 📌 / 归档 📦 / 导出 .md + .txt / 删除
+- 归档会话默认折叠，侧边栏底部「📦 N」按钮切换
+- IPC 文件存储 + localStorage 双重同步
+
+### 🛑 停止 AI 生成
+- 发送按钮在生成过程中变为红色 ■ 停止按钮
+- `AbortController` 中断 fetch 流式请求，标记 `[已停止生成]`
+
+### 📋 终端日志
+- 全部 / 运行(stdout) / 服务端(stderr) 三栏过滤
+- 固定 `max-width: 920px` + `min-height: 420px`
+- 服务端日志从【设置→测试】tab 迁移到终端页
+
+### 📐 设置面板优化
+- 所有字段加 hint 悬停注释
+- 11 个数字字段改为下拉菜单（Temperature/Top-K/Top-P/Min-P/Threads/Batch 等）
+- Device 选项修复为 llama.cpp 真值（dev0/dev1/none）
+
+### 🐛 关键修复
+- 所有 render() 统一 `preserveChatScroll` / `jumpToBottom`，不再回顶部
+- Composer grid→flex，发送时不再跳跃
+- 80+ 处硬编码颜色 → CSS 变量（暗夜自适应）
+- 日志行距修复（单行模板 + display:block）
 
 ## 快速开始
 

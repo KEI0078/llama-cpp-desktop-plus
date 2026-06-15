@@ -1,5 +1,67 @@
 # 更新日志
 
+## v1.1.0（2026-06-16）
+
+### 🆕 新增功能
+
+#### 🌙 暗夜主题（Apple 暗色模式）
+- 纯黑 `#000` + 深灰 `#1c1c1e` + 系统蓝 `#0a84ff`
+- 80+ 处硬编码颜色替换为 CSS 变量
+- 顶部栏 ☀️/🌙 PNG 透明按钮切换
+- macOS `hiddenInset` 隐藏红黄绿按钮
+- Windows `titleBarOverlay` 动态切换（日间 `#f8faf8` / 暗夜 `#000`）
+
+#### 💬 会话管理
+- **置顶** 📌 / **归档** 📦 / **导出** .md/.txt / **删除**
+- 归档会话默认折叠，侧边栏底部「📦 N」按钮切换查看
+- IPC 文件存储 + localStorage 双重同步
+
+#### 🛑 停止 AI 生成
+- chatBusy 时发送按钮变为红色 ■ 停止按钮
+- `AbortController` 中断 fetch 流式请求
+- 提示 `[已停止生成]` 标记
+
+#### 📋 终端日志过滤
+- 全部 / 运行(stdout) / 服务端(stderr) 切换
+- 服务端日志从设置【测试】tab 迁移到终端页
+
+#### 📐 设置面板优化
+- 所有参数字段加 hint 悬停注释
+- 11 个数字字段改为下拉菜单（Temperature/Top-K/Top-P/Min-P/Threads/Batch 等）
+- Device 选项修复为 llama.cpp 真值（dev0/dev1/none）
+
+#### 📱 UI 优化
+- 顶部栏靠左布局（`flex-start`）
+- 回到聊天按钮与说明文字对齐
+- 终端日志区固定 `max-width: 920px` + `min-height: 420px`
+- Composer 改为 flex 布局，发送时不再跳跃
+- 全部 render() 统一 `preserveChatScroll`，不再回顶部
+
+### 🐛 Bug 修复
+
+| 问题 | 根因 | 修复 |
+|------|------|------|
+| 日志行距过大 | 模板字面量缩进在 flex 中被当 item | 单行模板 + `display: block` |
+| 日志有横线 | `terminal-row` 用 `grid + border` | 改 flex + 无 border |
+| 标题栏色块 | backgroundColor 与 --bg 色差 | 统一 `#f8faf8` |
+| macOS 红黄绿按钮 | `titleBarStyle: 'hidden'` 不够 | 改 `'hiddenInset'` |
+| 终端区高度太小 | `.terminal-screen .terminal-console` 有 `min-height: 0` 覆盖 | 加 `min-height: 420px` |
+| 发送/重发回到顶部 | render() 无参数触发"不在底部保持原位" | 改 `jumpToBottom: true` |
+| 点击导出无反应 | mainWindow 可能为 null | 加 try-catch + fallback |
+| Device 无效参数 | 下拉用 cuda/vulkan 等错误值 | 改用 dev0/dev1/none + 过滤空值 |
+
+### 📦 打包
+
+```bash
+ELECTRON_MIRROR="https://npmmirror.com/mirrors/electron/" npm run dist
+```
+
+产物：
+- `Llama.cpp-Desktop-Plus-v1.1.0-2026-06-16.exe`（便携版，87 MB）
+- `Llama.cpp-Desktop-Plus-Setup-v1.1.0-2026-06-16.exe`（安装版，87 MB）
+
+---
+
 ## v1.0.0（2026-06-14）
 
 ### 🆕 新增功能
