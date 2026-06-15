@@ -2567,6 +2567,70 @@ appEl.addEventListener('keydown', event => {
   }
 })
 
+// v1.1：拖拽文件到聊天窗口
+appEl.addEventListener('dragover', event => {
+  if (state.view !== 'chat') return
+  event.preventDefault()
+  event.dataTransfer.dropEffect = 'copy'
+  appEl.classList.add('drag-over')
+})
+appEl.addEventListener('dragleave', event => {
+  appEl.classList.remove('drag-over')
+})
+appEl.addEventListener('drop', event => {
+  if (state.view !== 'chat') return
+  event.preventDefault()
+  // 清除拖动高亮
+  appEl.classList.remove('drag-over')
+  const files = Array.from(event.dataTransfer.files || [])
+  if (!files.length) return
+  for (const file of files) {
+    const type = file.type || ''
+    const name = file.name || ''
+    const reader = new FileReader()
+    if (type.startsWith('image/')) {
+      reader.onload = e => {
+        state.attachments = [...state.attachments, {
+          kind: 'image', name, size: file.size,
+          dataUrl: e.target.result,
+          path: name,
+        }]
+        render({ preserveChatScroll: true })
+      }
+      reader.readAsDataURL(file)
+    } else if (type.startsWith('video/')) {
+      reader.onload = e => {
+        state.attachments = [...state.attachments, {
+          kind: 'video', name, size: file.size,
+          dataUrl: e.target.result,
+          path: name,
+        }]
+        render({ preserveChatScroll: true })
+      }
+      reader.readAsDataURL(file)
+    } else if (type.startsWith('text/') || name.endsWith('.md') || name.endsWith('.txt') || name.endsWith('.json') || name.endsWith('.js') || name.endsWith('.py') || name.endsWith('.html') || name.endsWith('.css')) {
+      reader.onload = e => {
+        const text = e.target.result
+        if (state.chatInput) state.chatInput += '\n' + text
+        else state.chatInput = text
+        render({ preserveChatScroll: true })
+      }
+      reader.readAsText(file)
+    } else {
+      // 其他文件作为附件添加
+      reader.onload = e => {
+        state.attachments = [...state.attachments, {
+          kind: 'file', name, size: file.size,
+          dataUrl: e.target.result,
+          path: name,
+        }]
+        render({ preserveChatScroll: true })
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+})
+
 async function init() {
   try {
     loadSessions()

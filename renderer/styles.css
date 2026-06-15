@@ -2911,3 +2911,4 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .bench-chip { display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border:1px solid #d9dfd6;border-radius:6px;font-size:12px;cursor:pointer;background:#fff; }
 .bench-chip input { width:14px;height:14px;cursor:pointer; }
 .bench-log { margin-top:8px;padding:8px 10px;background:#0a0e13;color:#9ca3af;border-radius:6px;font-size:11px;line-height:1.5;max-height:200px;overflow-y:auto;font-family:'Cascadia Mono',Consolas,monospace;white-space:pre-wrap;word-break:break-all; }
+.app-shell.drag-over .composer-wrap { outline: 2px dashed #4a90d9; outline-offset: -8px; border-radius: 8px; background: rgba(74,144,217,0.04); }
