@@ -1317,9 +1317,8 @@ button {
 .log-entry {
   display: flex;
   flex-wrap: nowrap;
-  gap: 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 1px 0;
+  gap: 0;
+  padding: 0;
   align-items: baseline;
 }
 .log-entry .log-time {
