@@ -1058,8 +1058,7 @@ function renderTerminalPanel() {
       </div>
       <div class="log-toolbar">
         ${['all','stdout','stderr'].map(t => `<button type="button" class="outline-btn small-btn ${logTab===t?'active':''}" data-action="set-log-tab" data-log-tab="${t}" style="font-size:11px;padding:2px 10px">${t==='all'?'全部':t==='stdout'?'运行':'服务端'}</button>`).join('')}
-        <span style="flex:1"></span>
-        <button type="button" class="outline-btn small-btn" data-action="scroll-log-bottom" style="font-size:11px;padding:2px 10px">⬇ 最新</button>
+        <button type="button" class="outline-btn small-btn" data-action="scroll-log-bottom" style="font-size:11px;padding:2px 10px;margin-left:auto">⬇ 最新</button>
         <button type="button" class="outline-btn small-btn" data-action="clear-logs" style="font-size:11px;padding:2px 10px;color:#e74c3c">✕ 清空</button>
       </div>
       <div class="terminal-console log-box" id="inlineLogBox">${logRows}</div>

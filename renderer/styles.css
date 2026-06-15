@@ -2245,12 +2245,20 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 /* Softer terminal surface: still monospaced, but no black block against the light app. */
 .terminal-screen {
-  padding-top: 42px;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 .terminal-head {
   width: min(1120px, 94%);
-  margin-bottom: 12px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .terminal-summary {
