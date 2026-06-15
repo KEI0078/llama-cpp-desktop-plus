@@ -2262,6 +2262,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .terminal-console,
 .log-box {
+  width: 100%;
+  max-width: 100%;
   border: 1px solid var(--line);
   background: var(--log-bg);
   color: var(--text-primary);
