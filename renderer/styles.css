@@ -2251,7 +2251,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .terminal-console,
 .log-box {
   border: 1px solid var(--line);
-  background: #f7faf7;
+  background: var(--log-bg);
   color: var(--text-primary);
   box-shadow: 0 14px 36px rgba(18, 22, 17, 0.05);
 }
@@ -2981,6 +2981,22 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   --text-tertiary: #ebebf599;
   --border-card: #48484a;
   --hover-overlay: rgba(255,255,255,0.08);
+  --bg-muted: #3a3a3c;
+  --bg-hover: #3a3a3c;
+  --bg-active: #48484a;
+  --bg-card: #2c2c2e;
+  --bg-row: #2c2c2e;
+  --text-primary: #ffffff;
+  --text-on-primary: #ffffff;
+  --text-on-danger: #ffffff;
+  --border-light: #38383a;
+  --border-input: #38383a;
+  --border-divider: #38383a;
+  --shadow-light: rgba(0,0,0,0.4);
+  --shadow-medium: rgba(0,0,0,0.6);
+  --shadow-strong: rgba(0,0,0,0.8);
+  --backdrop-overlay: rgba(0,0,0,0.75);
+  --toggle-off: #48484a;
 }
 
 /* 主题切换按钮 */
