@@ -38,6 +38,7 @@ const state = {
   historySearch: '',
   historyMenuId: '',
   historyDialog: null,
+  logTab: 'all', // v1.1：日志过滤（全部/运行/服务端）
   chatMessages: [],
   chatInput: '',
   attachments: [],
