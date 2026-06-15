@@ -686,6 +686,48 @@ function startFreshSession() {
   state.historyMenuId = ''
 }
 
+function handleExportSession(sessionId) {
+  const session = state.sessions.find(s => s.id === sessionId)
+  if (!session) return
+  // 创建导出格式选择弹窗
+  const dialog = document.createElement('div')
+  dialog.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:99;display:flex;align-items:center;justify-content:center'
+  dialog.onclick = e => { if (e.target === dialog) dialog.remove() }
+  const box = document.createElement('div')
+  box.style.cssText = 'background:var(--surface);color:var(--ink);border-radius:12px;padding:24px;min-width:320px;box-shadow:0 18px 55px rgba(0,0,0,0.4)'
+  box.innerHTML = '<div style="font-size:16px;font-weight:700;margin-bottom:8px">导出会话</div><div style="color:var(--muted);margin-bottom:16px">选择导出格式：</div>'
+  const btnRow = document.createElement('div')
+  btnRow.style.cssText = 'display:flex;gap:8px'
+  btnRow.innerHTML = '<button class="outline-btn" id="export-md">导出 .md</button><button class="outline-btn" id="export-txt">导出 .txt</button><button class="outline-btn" id="export-cancel">取消</button>'
+  box.appendChild(btnRow)
+  dialog.appendChild(box)
+  document.body.appendChild(dialog)
+  // 导出 .md
+  document.getElementById('export-md').onclick = async () => {
+    dialog.remove()
+    const result = await window.llamaDesktop.exportSession({ id: sessionId })
+    if (!result?.ok) { setToast('导出失败'); return }
+    const fileResult = await window.llamaDesktop.saveFileDialog({
+      defaultName: (session.title || '对话记录') + '.md',
+      content: result.content
+    })
+    if (fileResult?.ok) setToast('已导出：' + fileResult.filePath)
+  }
+  // 导出 .txt
+  document.getElementById('export-txt').onclick = async () => {
+    dialog.remove()
+    const result = await window.llamaDesktop.exportSession({ id: sessionId })
+    if (!result?.ok) { setToast('导出失败'); return }
+    const fileResult = await window.llamaDesktop.saveFileDialog({
+      defaultName: (session.title || '对话记录') + '.txt',
+      content: result.content
+    })
+    if (fileResult?.ok) setToast('已导出：' + fileResult.filePath)
+  }
+  // 取消
+  document.getElementById('export-cancel').onclick = () => dialog.remove()
+}
+
 function attachmentLabel(kind) {
   return {
     image: '图片',
