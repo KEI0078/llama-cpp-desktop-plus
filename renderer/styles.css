@@ -3002,6 +3002,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   --border-light: #38383a;
   --border-input: #38383a;
   --border-divider: #38383a;
+  --danger-soft: #3a0e0c;
   --shadow-light: rgba(0,0,0,0.4);
   --shadow-medium: rgba(0,0,0,0.6);
   --shadow-strong: rgba(0,0,0,0.8);
