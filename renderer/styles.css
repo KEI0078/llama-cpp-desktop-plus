@@ -3017,6 +3017,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .settings-panel { background: var(--surface); }
 .theme-dark .settings-rail { background: var(--sidebar); }
 .theme-dark .settings-stack-card { background: var(--surface); }
+.theme-dark .settings-body { background: var(--surface); }
+.theme-dark .settings-stack-card > header { color: var(--ink); border-color: var(--line); }
 .theme-dark .service-bar { background: var(--surface); }
 .theme-dark .side-action { color: var(--ink); }
 .theme-dark .history-item { color: var(--ink); }
@@ -3024,11 +3026,14 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .drag-region { background: var(--sidebar); }
 .theme-dark .sidebar { background: var(--sidebar); }
 .theme-dark .round-btn { background: transparent; color: var(--ink); }
+.theme-dark .status-card { background: var(--surface); }
+.theme-dark .status-card strong { color: var(--ink); }
 .theme-dark .composer-wrap { background: var(--surface); }
 .theme-dark .composer textarea { background: var(--input-bg); color: var(--ink); }
 .theme-dark .log-box { background: var(--log-bg); color: var(--log-text); }
-.theme-dark .chat-feed { background: var(--bg); }
+.theme-dark .chat-feed { background: var(--surface); }
 .theme-dark .settings-tabs button { color: var(--muted); }
+.theme-dark .settings-tabs button.active { background: var(--surface); color: var(--ink); }
 .theme-dark .field input, .theme-dark .field textarea, .theme-dark .field select { background: var(--input-bg); color: var(--ink); }
 .theme-dark .model-chip, .theme-dark .bench-chip { background: var(--chip-bg); border-color: var(--line); color: var(--ink); }
 .theme-dark .chat-message,
