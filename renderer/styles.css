@@ -3031,4 +3031,11 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .settings-tabs button { color: var(--muted); }
 .theme-dark .field input, .theme-dark .field textarea, .theme-dark .field select { background: var(--input-bg); color: var(--ink); }
 .theme-dark .model-chip, .theme-dark .bench-chip { background: var(--chip-bg); border-color: var(--line); color: var(--ink); }
-.theme-dark .chat-message { color: var(--ink); }
+.theme-dark .chat-message,
+.theme-dark .message,
+.theme-dark .message-body,
+.theme-dark .message-body p,
+.theme-dark .message-body li,
+.theme-dark .message-body .markdown-text { color: var(--ink); }
+.theme-dark .message.user .message-body { background: var(--surface-soft); }
+.theme-dark .avatar { background: var(--bg-soft); color: var(--ink); }
