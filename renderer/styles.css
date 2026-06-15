@@ -2273,7 +2273,9 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .terminal-console {
   width: min(1120px, 94%);
+  margin: 0 auto 16px;
   padding: 10px 12px;
+  border-radius: 0 0 8px 8px;
 }
 
 .log-entry,
@@ -3070,4 +3072,4 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .avatar { background: var(--bg-soft); color: var(--ink); }
 
 /* 终端日志工具栏 */
-.log-toolbar { display:flex; gap:4px; align-items:center; padding:8px 14px; border-bottom:1px solid var(--line); margin-bottom:8px; flex-wrap:wrap; }
+.log-toolbar { display:flex; gap:6px; align-items:center; padding:10px 12px; border:1px solid var(--line); border-bottom:0; background:var(--surface); border-radius:8px 8px 0 0; flex-wrap:wrap; width:min(1120px, 94%); margin:0 auto 0; }
