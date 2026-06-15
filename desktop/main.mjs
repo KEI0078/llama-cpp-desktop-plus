@@ -740,7 +740,12 @@ async function buildServerArgs(config) {
   pushArg(args, '--threads-batch', config.threads_batch || config['p_threads-batch'])
   pushArg(args, '--batch-size', config.batch_size || config['p_batch-size'])
   pushArg(args, '--ubatch-size', config.ubatch_size || config['p_ubatch-size'])
-  pushArg(args, '--device', config.device)
+  // v1.1：只在显式设置时传 --device（空值/auto 不传，cuda/vulkan 等错误值也不传）
+  if (config.device && config.device !== 'auto' && config.device !== 'none') {
+    args.push('--device', config.device)
+  } else if (config.device === 'none') {
+    args.push('--device', 'none')
+  }
   pushArg(args, '--split-mode', config.split_mode)
   pushArg(args, '--tensor-split', config.tensor_split)
   pushArg(args, '--main-gpu', config.main_gpu)

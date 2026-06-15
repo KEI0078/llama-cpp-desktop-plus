@@ -1401,7 +1401,7 @@ function renderSettingsContent() {
         ${selectField('ubatch_size', 'Ubatch size', ['', 32, 64, 128, 256, 512, 1024])}
         ${selectField('split_mode', 'Split mode', ['', 'layer', 'row', 'none'])}
         ${field('tensor_split', 'Tensor split', { hint: '多 GPU 按比例切分，如 7,3 表示 GPU 0 跑 70%' })}
-        ${selectField('device', 'Device', ['auto', 'cuda', 'vulkan', 'cpu', 'hip', 'metal'])}
+        ${selectField('device', 'Device', ['', 'none', 'dev0', 'dev0,dev1', 'dev0,dev1,dev2'])}
         ${renderMainGpuSelect()}
         ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number', hint: 'MoE 模型保留在 CPU 的层数（显存不够时设 4-8）' })}
       </div>
@@ -1413,7 +1413,7 @@ function renderSettingsContent() {
         <strong>Ubatch size</strong> 物理批次大小（必须 ≤ batch_size）<br>
         <strong>Split mode</strong> 多 GPU 拆分方式：layer（按层）/ row（按行）/ none（不切）<br>
         <strong>Tensor split</strong> 多 GPU 比例分配，如 7,3 = GPU0 跑 70%<br>
-        <strong>Device</strong> llama.cpp 后端：auto/cuda(英伟达)/vulkan(通用 GPU)/metal(Apple)/hip(AMD)<br>
+        <strong>Device</strong> llama.cpp 设备列表：dev0 = 第 1 块 GPU，dev0,dev1 = 多 GPU，none = 不卸载到 GPU（空 = 默认）<br>
         <strong>主 GPU</strong> 主要工作的 GPU 编号（多卡环境选最快的）<br>
         <strong>n_cpu_moe</strong> MoE 模型走 CPU 的层数
       </div>
@@ -1630,7 +1630,7 @@ function renderModernSettingsContent() {
           <div class="form-grid two">
             ${selectField('threads_batch', 'Threads batch', ['', 1, 2, 4, 6, 8, 12, 16, 24, 32], 'prefill 阶段并行线程')}
             ${selectField('split_mode', 'Split mode', ['', 'layer', 'row', 'none'], '多 GPU 拆分：layer=按层 / row=按行 / none=不切')}
-            ${selectField('device', 'Device', ['auto', 'cuda', 'vulkan', 'cpu', 'hip', 'metal'], 'llama.cpp 后端：auto/cuda/vulkan/metal/hip/cpu')}
+            ${selectField('device', 'Device', ['', 'none', 'dev0', 'dev0,dev1', 'dev0,dev1,dev2'], 'llama.cpp 设备列表：dev0/dev1 = 第 1/2 块 GPU，none = 不卸载到 GPU')}
             ${field('n_cpu_moe', 'n_cpu_moe', { type: 'number', hint: 'MoE 模型保留在 CPU 的层数（显存不够时设 4-8）' })}
             ${selectField('log_verbosity', '日志等级', [0, 1, 2, 3, 4])}
           </div>
@@ -1638,7 +1638,7 @@ function renderModernSettingsContent() {
             <strong>线程与设备说明：</strong><br>
             <strong>Threads batch</strong> prefill 阶段并行线程数<br>
             <strong>Split mode</strong> 多 GPU 拆分方式：layer（按层）/ row（按行）/ none（不切）<br>
-            <strong>Device</strong> llama.cpp 后端：auto/cuda(英伟达)/vulkan(通用)/metal(Apple)/hip(AMD)/cpu<br>
+            <strong>Device</strong> 设备列表：dev0 = 第 1 块 GPU，none = 不卸载到 GPU<br>
             <strong>n_cpu_moe</strong> MoE 模型走 CPU 的层数<br>
             <strong>日志等级</strong> 控制 llama-server 输出的详细程度（0-4）
           </div>
