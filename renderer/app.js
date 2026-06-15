@@ -1001,9 +1001,12 @@ function renderSidebar() {
 
       <input class="history-search" data-history-search placeholder="搜索历史对话..." value="${escapeHtml(state.historySearch)}" />
 
-      <div class="side-section-label">历史对话</div>
+      <div class="side-section-label">
+        ${state.showArchived ? '归档会话' : '历史对话'}
+        <button type="button" class="text-btn" data-action="toggle-archived" style="float:right;font-size:11px">${state.showArchived ? '返回' : '📦 ' + state.sessions.filter(s => s.archived).length}</button>
+      </div>
       <div class="history-list">
-        ${sessions || '<div class="terminal-empty">还没有历史对话。发出第一条消息后会自动保存。</div>'}
+        ${sessions || '<div class="terminal-empty">' + (state.showArchived ? '没有归档会话' : '还没有历史对话。发出第一条消息后会自动保存。') + '</div>'}
       </div>
 
       <div class="side-bottom">
@@ -2507,6 +2510,10 @@ appEl.addEventListener('click', event => {
   }
   if (action === 'toggle-sidebar') {
     state.sidebarCollapsed = !state.sidebarCollapsed
+    render({ preserveChatScroll: true })
+  }
+  if (action === 'toggle-archived') {
+    state.showArchived = !state.showArchived
     render({ preserveChatScroll: true })
   }
   if (action === 'new-chat') {
