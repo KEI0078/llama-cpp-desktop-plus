@@ -1305,6 +1305,7 @@ button {
   min-height: 420px;
   max-height: calc(100vh - 260px);
   overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 8px;
   background: #11140f;
   color: var(--ink);
@@ -1312,6 +1313,8 @@ button {
   font-family: "Cascadia Mono", Consolas, monospace;
   font-size: 12px;
   line-height: 1.65;
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 
 .log-entry {
