@@ -3042,5 +3042,6 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .message-body p,
 .theme-dark .message-body li,
 .theme-dark .message-body .markdown-text { color: var(--ink); }
-.theme-dark .message.user .message-body { background: var(--surface-soft); }
+.theme-dark .message.user .message-body { background: var(--surface); }
+.theme-dark .message.user .bubble { background: var(--surface-soft); border-color: var(--line); }
 .theme-dark .avatar { background: var(--bg-soft); color: var(--ink); }

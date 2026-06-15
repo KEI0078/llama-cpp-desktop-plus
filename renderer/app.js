@@ -2298,7 +2298,7 @@ appEl.addEventListener('click', event => {
   if (action === 'toggle-theme') {
     state.config = { ...state.config, dark_theme: !state.config?.dark_theme }
     state.dirty = true
-    render()
+    render({ preserveChatScroll: true })
   }
   if (action === 'toggle-attachment-menu') {
     if (state.attachmentMenuOpen) {
