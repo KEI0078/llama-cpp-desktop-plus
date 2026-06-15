@@ -2967,7 +2967,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .log-box { background: var(--log-bg); color: var(--log-text); }
 .theme-dark .service-bar { background: var(--surface); }
 .theme-dark .settings-rail { background: var(--sidebar); }
-.theme-dark .settings-stack-card { background: var(--surface); }
+.theme-dark .settings-stack-card { background: var(--surface) !important; }
 .theme-dark .settings-card-header-compact { border-bottom-color: var(--line); }
 .theme-dark .chat-feed { background: var(--bg); }
 .theme-dark .composer-wrap { background: var(--surface); border-top-color: var(--line); }
@@ -3008,16 +3008,16 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .drag-region { background: var(--sidebar); }
 .theme-dark .sidebar { background: var(--sidebar); }
 .theme-dark .side-bottom { background: var(--sidebar); }
-.theme-dark .side-action { color: var(--ink); }
+.theme-dark .side-action { color: var(--ink) !important; }
 .theme-dark .side-action:hover { background: var(--surface-soft); }
-.theme-dark .round-btn { background: transparent; color: var(--ink); }
+.theme-dark .round-btn { background: transparent !important; color: var(--ink) !important; }
 .theme-dark .round-btn:hover { background: var(--surface-soft); }
 .theme-dark .history-search { border-color: var(--line); }
-.theme-dark .history-search input { background: var(--input-bg); color: var(--ink); }
+.theme-dark .history-search input { background: var(--input-bg) !important; color: var(--ink) !important; }
 .theme-dark .history-item { color: var(--ink); }
 .theme-dark .history-item:hover { background: var(--surface-soft); }
 .theme-dark .settings-panel { background: var(--surface); }
-.theme-dark .settings-stack-card { background: var(--surface); }
+.theme-dark .settings-stack-card { background: var(--surface) !important; }
 .theme-dark .settings-stack-card > header { border-color: var(--line); }
 .theme-dark .settings-stack-card > header strong { color: var(--ink); }
 .theme-dark .settings-stack-card > header span { color: var(--muted); }
@@ -3087,3 +3087,24 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .log-time { color: #58a6ff; }
 .theme-dark .side-action.active { color: var(--green); }
 .theme-toggle .theme-icon { width: 20px; height: 20px; display: block; pointer-events: none; }
+
+/* 暗夜强力覆盖 - 强制所有非图片背景变暗 */
+.theme-dark .app-shell,
+.theme-dark .main-area,
+.theme-dark .sidebar,
+.theme-dark .drag-region { background: var(--bg) !important; }
+.theme-dark .side-action,
+.theme-dark .history-item,
+.theme-dark .history-item-title,
+.theme-dark .settings-tabs button { color: var(--ink) !important; }
+.theme-dark .outline-btn,
+.theme-dark .text-btn { background: var(--btn-bg) !important; color: var(--btn-text) !important; border-color: var(--line) !important; }
+.theme-dark .settings-panel,
+.theme-dark .settings-stack-card { background: var(--surface) !important; }
+.theme-dark .settings-rail { background: var(--sidebar) !important; }
+.theme-dark .composer-wrap,
+.theme-dark .composer { background: var(--surface) !important; }
+.theme-dark .composer textarea { background: var(--input-bg) !important; color: var(--ink) !important; }
+.theme-dark .service-bar { background: var(--surface) !important; }
+.theme-dark .chat-feed { background: var(--bg) !important; }
+.theme-dark .log-box { background: var(--log-bg) !important; color: var(--log-text) !important; }
