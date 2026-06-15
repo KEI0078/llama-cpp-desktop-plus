@@ -3068,3 +3068,6 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .message.user .bubble { background: var(--surface-soft); border-color: var(--line); }
 .theme-dark .message.user .avatar { background: var(--bg-soft); color: var(--ink) !important; }
 .theme-dark .avatar { background: var(--bg-soft); color: var(--ink); }
+
+/* 终端日志工具栏 */
+.log-toolbar { display:flex; gap:4px; align-items:center; padding:8px 14px; border-bottom:1px solid var(--line); margin-bottom:8px; flex-wrap:wrap; }

@@ -1056,7 +1056,7 @@ function renderTerminalPanel() {
         <span>正常终端视图：只显示 llama.cpp/server/runtime 输出。</span>
         ${hiddenCount ? `<strong>已隐藏 ${hiddenCount} 条聊天回显、JSON chunk、prompt 或轮询日志。</strong>` : ''}
       </div>
-      <div style="display:flex;gap:4px;margin-bottom:8px;border-bottom:1px solid var(--line);padding-bottom:6px;align-items:center;padding:0 14px 6px">
+      <div class="log-toolbar">
         ${['all','stdout','stderr'].map(t => `<button type="button" class="outline-btn small-btn ${logTab===t?'active':''}" data-action="set-log-tab" data-log-tab="${t}" style="font-size:11px;padding:2px 10px">${t==='all'?'全部':t==='stdout'?'运行':'服务端'}</button>`).join('')}
         <span style="flex:1"></span>
         <button type="button" class="outline-btn small-btn" data-action="scroll-log-bottom" style="font-size:11px;padding:2px 10px">⬇ 最新</button>
