@@ -2245,7 +2245,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 /* Softer terminal surface: still monospaced, but no black block against the light app. */
 .terminal-screen {
-  padding: 24px;
+  padding: 56px 24px 24px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
