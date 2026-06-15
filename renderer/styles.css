@@ -430,7 +430,7 @@ button {
 }
 
 .message.system .avatar {
-  background: var(--danger-soft);
+  background: #9b3d3d;
   color: var(--danger);
 }
 
@@ -864,7 +864,7 @@ button {
 }
 
 .status-dot.running {
-  background: var(--ink);
+  background: var(--green);
 }
 
 .status-dot.pending {
