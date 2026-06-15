@@ -1115,17 +1115,17 @@ function createTray() {
   updateTrayMenu()
 }
 
-// v1.1：根据当前配置设置窗口标题栏颜色
+// v1.1：根据当前配置设置窗口标题栏颜色（与主底色融为一体）
 function getInitialTitleBarOverlay() {
   try {
     const fs = require('node:fs')
     const state = JSON.parse(fs.readFileSync(defaultStatePath(), 'utf8') || '{}')
     const dark = state.dark_theme ?? state.config?.dark_theme
     return dark
-      ? { color: '#1c1c1e', symbolColor: '#ffffff' }
-      : { color: '#f5f5f5', symbolColor: '#2b2922' }
+      ? { color: '#000000', symbolColor: '#ffffff' }   /* 暗夜：与 --bg 一致 */
+      : { color: '#f8faf8', symbolColor: '#151713' }   /* 日间：与 --bg 一致 */
   } catch (e) {
-    return { color: '#f5f5f5', symbolColor: '#2b2922' }
+    return { color: '#f8faf8', symbolColor: '#151713' }
   }
 }
 
@@ -1135,8 +1135,8 @@ async function applyTitleBarOverlay() {
     const state = await readJson(defaultStatePath(), {})
     const dark = state.dark_theme ?? state.config?.dark_theme
     mainWindow.setTitleBarOverlay(dark
-      ? { color: '#1c1c1e', symbolColor: '#ffffff' }
-      : { color: '#f5f5f5', symbolColor: '#2b2922' }
+      ? { color: '#000000', symbolColor: '#ffffff' }
+      : { color: '#f8faf8', symbolColor: '#151713' }
     )
   } catch (e) { /* ignore */ }
 }
