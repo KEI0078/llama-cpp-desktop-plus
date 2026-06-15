@@ -1991,17 +1991,25 @@ function registerIpc() {
   })
 
   ipcMain.handle('llama:save-file-dialog', async (_event, { defaultName, content }) => {
-    const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
-      title: '导出会话',
-      defaultPath: defaultName,
-      filters: [
-        { name: 'Markdown', extensions: ['md'] },
-        { name: '文本文件', extensions: ['txt'] },
-      ],
-    })
-    if (canceled || !filePath) return { ok: false, error: '已取消' }
-    await writeFile(filePath, content, 'utf8')
-    return { ok: true, filePath }
+    try {
+      const options = {
+        title: '导出会话',
+        defaultPath: defaultName,
+        filters: [
+          { name: 'Markdown', extensions: ['md'] },
+          { name: '文本文件', extensions: ['txt'] },
+        ],
+      }
+      const result = mainWindow && !mainWindow.isDestroyed()
+        ? await dialog.showSaveDialog(mainWindow, options)
+        : await dialog.showSaveDialog(options)
+      if (result.canceled || !result.filePath) return { ok: false, error: '已取消' }
+      await writeFile(result.filePath, content, 'utf8')
+      return { ok: true, filePath: result.filePath }
+    } catch (e) {
+      addLog('desktop', `保存文件失败：${e.message}`)
+      return { ok: false, error: e.message }
+    }
   })
 }
 

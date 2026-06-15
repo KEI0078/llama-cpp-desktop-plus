@@ -706,24 +706,40 @@ function handleExportSession(sessionId) {
   // 导出 .md
   document.getElementById('export-md').onclick = async () => {
     dialog.remove()
-    const result = await window.llamaDesktop.exportSession({ id: sessionId })
-    if (!result?.ok) { setToast('导出失败'); return }
-    const fileResult = await window.llamaDesktop.saveFileDialog({
-      defaultName: (session.title || '对话记录') + '.md',
-      content: result.content
-    })
-    if (fileResult?.ok) setToast('已导出：' + fileResult.filePath)
+    try {
+      const result = await window.llamaDesktop.exportSession({ id: sessionId })
+      if (!result?.ok) { setToast('导出失败：' + (result?.error || '')); return }
+      const fileResult = await window.llamaDesktop.saveFileDialog({
+        defaultName: (session.title || '对话记录') + '.md',
+        content: result.content
+      })
+      if (fileResult?.ok) {
+        setToast('已导出：' + fileResult.filePath)
+      } else {
+        setToast('保存已取消')
+      }
+    } catch (e) {
+      setToast('导出失败：' + (e?.message || String(e)))
+    }
   }
   // 导出 .txt
   document.getElementById('export-txt').onclick = async () => {
     dialog.remove()
-    const result = await window.llamaDesktop.exportSession({ id: sessionId })
-    if (!result?.ok) { setToast('导出失败'); return }
-    const fileResult = await window.llamaDesktop.saveFileDialog({
-      defaultName: (session.title || '对话记录') + '.txt',
-      content: result.content
-    })
-    if (fileResult?.ok) setToast('已导出：' + fileResult.filePath)
+    try {
+      const result = await window.llamaDesktop.exportSession({ id: sessionId })
+      if (!result?.ok) { setToast('导出失败：' + (result?.error || '')); return }
+      const fileResult = await window.llamaDesktop.saveFileDialog({
+        defaultName: (session.title || '对话记录') + '.txt',
+        content: result.content
+      })
+      if (fileResult?.ok) {
+        setToast('已导出：' + fileResult.filePath)
+      } else {
+        setToast('保存已取消')
+      }
+    } catch (e) {
+      setToast('导出失败：' + (e?.message || String(e)))
+    }
   }
   // 取消
   document.getElementById('export-cancel').onclick = () => dialog.remove()
