@@ -14,7 +14,7 @@ const settingsTabs = [
   ['display', '&#128421;', '模型', '模型标签、模板与显示项'],
   ['developer',  '</>',  '开发者', '线程、GPU 与批处理'],
   ['mcp', '&#128206;', 'MCP', '预留给扩展和工具接入'],
-  ['logs', '📄', '日志', '测速、调试与服务端输出'],
+  ['logs', '📄', '测试', '快速测速与基准测试'],
 ]
 
 const appEl = document.getElementById('app')
