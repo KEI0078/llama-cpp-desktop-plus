@@ -202,7 +202,7 @@ button {
 }
 
 .side-action.active {
-  color: var(--green);
+  color: var(--ink);
   font-weight: 700;
 }
 
@@ -275,7 +275,7 @@ button {
 }
 
 .history-search:focus {
-  border-color: var(--green-line);
+  border-color: var(--line-strong);
   box-shadow: 0 0 0 3px rgba(80, 111, 81, 0.10);
 }
 
@@ -299,9 +299,9 @@ button {
   text-align: left;
 }
 
-.terminal-item:hover {
-  border-color: var(--green-line);
-  background: var(--green-soft);
+{
+  border-color: var(--line);
+  background: var(--surface-soft);
 }
 
 .terminal-item span,
@@ -318,7 +318,7 @@ button {
 }
 
 .terminal-item strong {
-  color: var(--green);
+  color: var(--ink);
   font-size: 11px;
 }
 
@@ -445,8 +445,8 @@ button {
 }
 
 .message.user .bubble {
-  background: var(--green-soft);
-  border-color: var(--green-line);
+  background: var(--surface-soft);
+  border-color: var(--line);
 }
 
 .message.system .bubble {
@@ -587,11 +587,11 @@ button {
   width: 172px;
   max-width: 100%;
   margin: 0;
-  border: 1px solid var(--green-line);
+  border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--green-soft);
-  overflow: hidden;
+  background: var(--surface-soft);
   box-shadow: 0 8px 20px rgba(18, 22, 17, 0.05);
+  overflow: hidden;
 }
 
 .attachment-card.image.editable {
@@ -652,8 +652,8 @@ button {
 }
 
 .attachment-chip.image {
-  border-color: var(--green-line);
-  background: var(--green-soft);
+  border-color: var(--line);
+  background: var(--surface-soft);
 }
 
 .attachment-chip.message-file,
@@ -835,9 +835,9 @@ button {
 }
 
 .primary-btn {
-  border: 1px solid var(--green-line);
-  background: var(--green);
-  color: white;
+  border: 1px solid var(--line-strong);
+  background: var(--ink);
+  color: var(--bg);
 }
 
 .danger-btn {
@@ -854,7 +854,7 @@ button {
 }
 
 .status-dot.running {
-  background: var(--green);
+  background: var(--ink);
 }
 
 .status-dot.pending {
@@ -960,9 +960,9 @@ button {
 }
 
 .settings-rail-tabs button.active {
-  border-color: var(--green-line);
-  background: var(--green-soft);
-  color: var(--green);
+  border-color: var(--line);
+  background: var(--surface-soft);
+  color: var(--ink);
 }
 
 .settings-rail-tabs strong,
@@ -1148,7 +1148,7 @@ button {
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: var(--green);
+  border-color: var(--ink);
   box-shadow: 0 0 0 3px rgba(80, 111, 81, 0.12);
 }
 
@@ -2394,7 +2394,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .history-dialog input:focus {
-  border-color: var(--green-line);
+  border-color: var(--line);
   box-shadow: 0 0 0 3px rgba(80, 111, 81, 0.10);
 }
 
@@ -2719,7 +2719,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .settings-rail-tabs button.active .settings-tab-icon {
   border-color: var(--line);
   background: linear-gradient(180deg, #f7fcf5 0%, #edf6e9 100%);
-  color: var(--green);
+  color: var(--ink);
   box-shadow: 0 10px 20px rgba(80, 111, 81, 0.08);
 }
 
