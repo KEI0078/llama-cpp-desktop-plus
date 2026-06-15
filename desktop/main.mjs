@@ -1147,7 +1147,7 @@ function createMainWindow() {
     height: 900,
     minWidth: 1120,
     minHeight: 720,
-    title: 'Llama.cpp Desktop',
+    title: '',  // v1.1：隐藏 OS 标题栏文字，与应用完美融合
     backgroundColor: '#F7F7F4',
     icon: iconPath,
     titleBarStyle: 'hidden',
