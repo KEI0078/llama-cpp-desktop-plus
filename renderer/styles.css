@@ -3108,3 +3108,42 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .service-bar { background: var(--surface) !important; }
 .theme-dark .chat-feed { background: var(--bg) !important; }
 .theme-dark .log-box { background: var(--log-bg) !important; color: var(--log-text) !important; }
+
+/* 暗夜 - 补全遗漏 */
+.theme-dark .model-info-grid,
+.theme-dark .model-info-empty { background: var(--surface-soft) !important; border-color: var(--line); }
+.theme-dark .model-info-empty { color: var(--muted); }
+.theme-dark .settings-tab-icon { background: var(--surface-soft) !important; border-color: var(--line); }
+.theme-dark .terminal-screen { background: var(--bg) !important; }
+.theme-dark .preview-panel,
+.theme-dark .preview-head { background: var(--surface) !important; }
+.theme-dark .preview-head { border-color: var(--line); }
+.theme-dark .history-dialog { background: var(--surface) !important; }
+.theme-dark .history-dialog input { background: var(--input-bg) !important; color: var(--ink) !important; }
+.theme-dark .history-dialog h2 { color: var(--ink) !important; }
+.theme-dark .chat-screen { background: var(--bg) !important; }
+.theme-dark .composer-wrap { background: var(--surface) !important; }
+.theme-dark .attach-menu { background: var(--surface) !important; border-color: var(--line) !important; }
+.theme-dark .attach-menu button { color: var(--ink) !important; }
+.theme-dark .attach-menu button:hover { background: var(--surface-soft) !important; }
+.theme-dark .side-action { color: var(--ink) !important; background: transparent !important; }
+.theme-dark .side-action.active { color: var(--green) !important; }
+.theme-dark .history-item { color: var(--ink) !important; }
+.theme-dark .history-item:hover { background: var(--surface-soft) !important; }
+.theme-dark .history-search { border-color: var(--line) !important; }
+.theme-dark .history-search input { background: var(--input-bg) !important; color: var(--ink) !important; }
+.theme-dark .settings-stack-card { background: var(--surface) !important; }
+.theme-dark .settings-stack-card > header { border-color: var(--line) !important; }
+.theme-dark .settings-rail { background: var(--sidebar) !important; }
+.theme-dark .settings-tabs button { color: var(--muted) !important; }
+.theme-dark .settings-tabs button.active { color: var(--ink) !important; background: var(--surface) !important; }
+.theme-dark .settings-body { color: var(--ink) !important; }
+.theme-dark .command-preview pre { color: var(--ink) !important; }
+.theme-dark .service-left span { color: var(--ink) !important; }
+.theme-dark .service-bar { background: var(--surface) !important; border-color: var(--line) !important; }
+.theme-dark .chat-message .message-meta { color: var(--muted) !important; }
+.theme-dark .model-info-row strong { color: var(--ink) !important; }
+.theme-dark .model-info-row span { color: var(--muted) !important; }
+.theme-dark .model-template-head { border-color: var(--line) !important; }
+.theme-dark .model-chip { background: var(--chip-bg) !important; color: var(--ink) !important; }
+.theme-dark .drag-region { background: var(--sidebar) !important; color: var(--muted) !important; }
