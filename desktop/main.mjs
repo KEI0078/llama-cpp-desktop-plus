@@ -1123,9 +1123,9 @@ function getInitialTitleBarOverlay() {
     const dark = state.dark_theme ?? state.config?.dark_theme
     return dark
       ? { color: '#1c1c1e', symbolColor: '#ffffff' }
-      : { color: '#f7f8f5', symbolColor: '#2b2922' }
+      : { color: '#f5f5f5', symbolColor: '#2b2922' }
   } catch (e) {
-    return { color: '#f7f8f5', symbolColor: '#2b2922' }
+    return { color: '#f5f5f5', symbolColor: '#2b2922' }
   }
 }
 
@@ -1136,7 +1136,7 @@ async function applyTitleBarOverlay() {
     const dark = state.dark_theme ?? state.config?.dark_theme
     mainWindow.setTitleBarOverlay(dark
       ? { color: '#1c1c1e', symbolColor: '#ffffff' }
-      : { color: '#f7f8f5', symbolColor: '#2b2922' }
+      : { color: '#f5f5f5', symbolColor: '#2b2922' }
     )
   } catch (e) { /* ignore */ }
 }
