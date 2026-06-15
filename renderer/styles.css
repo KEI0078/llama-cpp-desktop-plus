@@ -2282,6 +2282,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .terminal-console {
   width: 100%;
+  min-height: 420px;
+  max-height: calc(100vh - 260px);
   margin: 0;
   padding: 10px 12px;
   border-radius: 0;
