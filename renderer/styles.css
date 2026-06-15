@@ -2012,11 +2012,11 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .terminal-row {
-  display: grid;
-  grid-template-columns: 92px 72px minmax(0, 1fr);
-  gap: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 4px 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  padding: 0;
+  align-items: baseline;
 }
 
 .terminal-row span {
@@ -2275,10 +2275,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .terminal-row,
 .log-entry {
-  min-height: 34px;
-  align-items: center;
-  border-bottom: 1px solid #e8ece5;
-  padding: 5px 0;
+  align-items: baseline;
+  padding: 0;
 }
 
 .terminal-row:last-child,
