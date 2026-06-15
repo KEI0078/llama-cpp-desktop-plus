@@ -56,6 +56,7 @@ contextBridge.exposeInMainWorld('llamaDesktop', {
   pinSession: payload => ipcRenderer.invoke('llama:pin-session', payload),
   archiveSession: payload => ipcRenderer.invoke('llama:archive-session', payload),
   exportSession: payload => ipcRenderer.invoke('llama:export-session', payload),
+  saveFileDialog: payload => ipcRenderer.invoke('llama:save-file-dialog', payload),
 
   // 事件订阅
   onEvent: callback => {

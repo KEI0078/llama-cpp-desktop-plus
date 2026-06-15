@@ -1979,24 +1979,29 @@ function registerIpc() {
     const p = path.join(sessionsDir(), `${id}.json`)
     try {
       const session = JSON.parse(await readFile(p, 'utf8'))
-      const lines = [`# ${session.title || '对话记录'}\n`, `> 导出时间：${new Date().toLocaleString('zh-CN')}\n`, '']
+      const lines = [`# ${session.title || '对话记录'}`, '', `> 导出时间：${new Date().toLocaleString('zh-CN')}`, '']
       for (const msg of session.messages || []) {
         const role = msg.role === 'user' ? '你' : msg.role === 'assistant' ? '模型' : '系统'
-        lines.push(`### ${role}\n`)
+        lines.push(`## ${role}`)
         const text = typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)
-        if (format === 'md') {
-          lines.push(text, '')
-        } else {
-          // txt 格式：纯文本
-          lines.push(text.replace(/<[^>]+>/g, ''), '')
-        }
+        lines.push('', text, '')
       }
-      const content = lines.join('\n')
-      const ext = format === 'md' ? '.md' : '.txt'
-      const filePath = path.join(sessionsDir(), `${id}${ext}`)
-      await writeFile(filePath, content, 'utf8')
-      return { ok: true, content, filePath }
+      return { ok: true, content: lines.join('\n'), title: session.title || '对话记录' }
     } catch (e) { return { ok: false, error: e.message } }
+  })
+
+  ipcMain.handle('llama:save-file-dialog', async (_event, { defaultName, content }) => {
+    const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
+      title: '导出会话',
+      defaultPath: defaultName,
+      filters: [
+        { name: 'Markdown', extensions: ['md'] },
+        { name: '文本文件', extensions: ['txt'] },
+      ],
+    })
+    if (canceled || !filePath) return { ok: false, error: '已取消' }
+    await writeFile(filePath, content, 'utf8')
+    return { ok: true, filePath }
   })
 }
 
