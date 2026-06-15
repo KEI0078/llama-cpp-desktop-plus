@@ -1324,7 +1324,7 @@ button {
 .log-entry .log-time {
   color: var(--text-tertiary);
   flex-shrink: 0;
-  min-width: 52px;
+  min-width: 36px;
   font-size: 12px;
 }
 .log-entry .log-source {
