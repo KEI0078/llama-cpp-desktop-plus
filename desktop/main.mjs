@@ -31,6 +31,9 @@ let runtimeStatus = {
 }
 let logs = []
 
+// v1.1：流式聊天请求的 AbortController 列表（用于中途停止）
+const activeChatStreams = new Map()
+
 function defaultBaseDir() {
   const candidates = [
     authoredBaseDir,
@@ -1763,6 +1766,9 @@ function registerIpc() {
 
     addLog('chat', `request ${requestId}: ${messages.length} messages -> ${url}`)
 
+    const abortController = new AbortController()
+    activeChatStreams.set(requestId, abortController)
+
     let response
     try {
       response = await fetch(url, {
@@ -1777,6 +1783,7 @@ function registerIpc() {
           chat_template_kwargs: parseChatTemplateKwargs(config.chat_template_kwargs) || undefined,
           stream: true,
         }),
+        signal: abortController.signal,
         signal: requestTimeoutSignal(config),
       })
     } catch (error) {
@@ -1843,7 +1850,21 @@ function registerIpc() {
     const approxTokens = Math.max(1, Math.round(String(content || '').length / 3))
     addLog('chat', `stream done: ${approxTokens} approx tokens, ${elapsed.toFixed(1)}s`)
     sendEvent({ type: 'chat-stream', requestId, done: true, content })
+    activeChatStreams.delete(requestId)
     return { ok: true, content, raw }
+  })
+
+  ipcMain.handle('llama:stop-chat', async (_event, { requestId }) => {
+    const controller = activeChatStreams.get(requestId)
+    if (!controller) return { ok: false, error: '未找到对应流式请求' }
+    try {
+      controller.abort()
+      activeChatStreams.delete(requestId)
+      addLog('chat', `request ${requestId}: 用户中止生成`)
+      return { ok: true }
+    } catch (e) {
+      return { ok: false, error: e.message }
+    }
   })
 
   ipcMain.handle('llama:pick-file', async (_event, payload) => {

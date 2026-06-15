@@ -1251,9 +1251,9 @@ function renderChat() {
           <div class="attach-wrap">
             <button class="round-btn" type="button" data-action="toggle-attachment-menu" title="添加内容">+</button>
           </div>
-          <textarea data-chat-input spellcheck="false" placeholder="输入一条消息……">${escapeHtml(state.chatInput)}</textarea>
-          <button class="send-btn" type="button" data-action="send-chat" ${state.chatBusy ? 'disabled' : ''}>
-            ${state.chatBusy ? '...' : '↑'}
+          <textarea data-chat-input spellcheck="false" placeholder="输入一条消息……" ${state.chatBusy ? 'disabled' : ''}>${escapeHtml(state.chatInput)}</textarea>
+          <button class="send-btn ${state.chatBusy ? 'is-stop' : ''}" type="button" data-action="${state.chatBusy ? 'stop-chat' : 'send-chat'}" title="${state.chatBusy ? '停止生成' : '发送'}">
+            ${state.chatBusy ? '■' : '↑'}
           </button>
         </div>
         <div class="composer-hint">按住 Enter 发送，Shift + Enter 换行</div>
@@ -2029,6 +2029,26 @@ async function sendChat() {
   }
 }
 
+async function stopChat() {
+  if (!state.chatBusy) return
+  if (state.streamRequestId) {
+    try { await window.llamaDesktop.stopChat({ requestId: state.streamRequestId }) } catch {}
+  }
+  const lastAssistant = state.chatMessages[state.chatMessages.length - 1]
+  if (lastAssistant?.role === 'assistant' && lastAssistant.streaming) {
+    lastAssistant.streaming = false
+    if (!lastAssistant.content) {
+      state.chatMessages.pop()
+    } else {
+      lastAssistant.content += '\n\n[已停止生成]'
+    }
+  }
+  state.chatBusy = false
+  state.streamRequestId = ''
+  saveCurrentSession()
+  render({ preserveChatScroll: true })
+}
+
 async function retryMessage(index) {
   if (state.chatBusy) return
   const previousUserIndex = state.chatMessages
@@ -2609,6 +2629,7 @@ appEl.addEventListener('click', event => {
   if (action === 'stop') void stop()
   if (action === 'health') void health()
   if (action === 'send-chat') void sendChat()
+  if (action === 'stop-chat') void stopChat()
   
   // v1.0：参数面板 - 文件选择按钮
   const paramPick = target.dataset.paramPick

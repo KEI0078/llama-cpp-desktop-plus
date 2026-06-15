@@ -3101,3 +3101,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 /* 终端日志工具栏 */
 .log-toolbar { display:flex; gap:6px; align-items:center; padding:6px 10px; border-bottom:1px solid var(--line); background:var(--surface); flex-wrap:wrap; width:100%; max-width:920px; margin:0 auto; }
+
+/* 发送按钮 - 停止状态 */
+.send-btn.is-stop { background: #9b3d3d !important; color: #fff !important; }
+.send-btn.is-stop:hover { background: #7a2a2a !important; }
+.theme-dark .send-btn.is-stop { background: #9b3d3d !important; }
