@@ -2072,7 +2072,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   width: 100%;
   height: 100%;
   border: 0;
-  background: white;
+  background: var(--surface);
 }
 
 .preview-image-wrap {
@@ -2089,7 +2089,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 18px 38px rgba(18, 22, 17, 0.12);
-  background: #fff;
+  background: var(--surface);
 }
 
 /* Web-style conversation list menus and tighter first-screen composition. */
@@ -2150,7 +2150,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   width: 150px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: 0 14px 36px rgba(18, 22, 17, 0.14);
   padding: 6px;
 }
@@ -2298,7 +2298,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .terminal-screen {
   grid-template-rows: auto auto minmax(0, 1fr);
-  background: #ffffff;
+  background: var(--surface);
 }
 
 .terminal-screen .terminal-head,
@@ -2361,7 +2361,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   width: min(560px, calc(100vw - 42px));
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: 0 26px 82px rgba(16, 18, 14, 0.24);
   transform: translate(-50%, -50%);
   padding: 26px;
@@ -2390,7 +2390,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   outline: none;
   padding: 0 12px;
   color: var(--ink);
-  background: #fff;
+  background: var(--surface);
 }
 
 .history-dialog input:focus {
@@ -2466,7 +2466,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   z-index: 130;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 34px 100px rgba(17, 20, 16, 0.24);
   display: grid;
   grid-template-rows: 64px minmax(0, 1fr);
@@ -2480,7 +2480,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   gap: 18px;
   padding: 0 18px 0 22px;
   border-bottom: 1px solid var(--line);
-  background: #fff;
+  background: var(--surface);
 }
 
 .model-info-head span,
@@ -2519,14 +2519,14 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #fff;
+  background: var(--surface);
   overflow: hidden;
 }
 
 .model-info-grid {
   border: 0;
   border-radius: 0;
-  background: #fff;
+  background: var(--surface);
   overflow: hidden;
 }
 
@@ -2589,7 +2589,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .model-template-card {
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #fff;
+  background: var(--surface);
   overflow: hidden;
 }
 
@@ -2636,7 +2636,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   min-height: 280px;
   border: 1px dashed #d5dbd1;
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
   display: grid;
   place-items: center;
   color: var(--muted);
@@ -2757,7 +2757,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .settings-body {
   padding: 24px 28px 20px;
   overflow: auto;
-  background: #fff;
+  background: var(--surface);
 }
 
 .settings-stack {
@@ -2768,7 +2768,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .settings-stack-card {
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
   padding: 12px 14px;
 }
 
@@ -2968,6 +2968,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-toggle:hover { background: rgba(0,0,0,0.06); }
 .theme-dark .theme-toggle:hover { background: rgba(255,255,255,0.1); }
 .theme-toggle .theme-icon { width:20px;height:20px;display:block;pointer-events:none; }
+.theme-dark .theme-icon { filter: invert(1); }
 
 /* 测速组件 */
 .bench-chip { display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border:1px solid var(--border-card);border-radius:6px;font-size:12px;cursor:pointer;background:var(--chip-bg); }
