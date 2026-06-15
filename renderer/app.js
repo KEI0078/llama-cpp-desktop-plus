@@ -2401,16 +2401,22 @@ appEl.addEventListener('click', event => {
     state.sidebarCollapsed = !state.sidebarCollapsed
     render()
   }
-  if (action === 'focus-chat') {
-    state.active = 'chat'
+  if (action === 'new-chat') {
     state.view = 'chat'
+    state.chatMessages = []
+    state.currentSessionId = makeSessionId()
+    state.active = 'overview'
+    state.settingsOpen = true
+    render({ resetHistoryScroll: true, jumpToBottom: true })
+  }
+  if (action === 'focus-chat') {
     state.sidebarPanel = 'chats'
     render({ resetHistoryScroll: true })
     setTimeout(() => {
       const search = document.querySelector('[data-history-search]')
       search?.focus()
       search?.select?.()
-    }, 0)
+    }, 50)
   }
   if (action === 'return-chat') {
     state.active = 'chat'
