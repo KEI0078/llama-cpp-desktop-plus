@@ -1036,11 +1036,12 @@ function renderAttachmentChips(attachments, removable, role = 'composer') {
 }
 
 function renderTerminalPanel() {
-  const logs = visibleTerminalLogs()
+  const logTab = state.logTab || 'all'
+  const logs = (logTab === 'all' ? visibleLogs() : visibleLogs().filter(e => e.source === logTab))
   const hiddenCount = Math.max(0, (state.logs || []).length - logs.length)
   const logRows = logs.length
-    ? logs.map(line => `<div class="terminal-line">${escapeHtml(line)}</div>`).join('')
-    : '<div class="terminal-line terminal-muted">Waiting for llama.cpp server output...</div>'
+    ? logs.map(entry => renderLogRow(entry, 'log-entry')).join('')
+    : '<div class="terminal-line terminal-muted">还没有日志。启动服务后这里会显示 llama.cpp 输出。</div>'
 
   return `
     <section class="terminal-screen">
@@ -1055,7 +1056,13 @@ function renderTerminalPanel() {
         <span>正常终端视图：只显示 llama.cpp/server/runtime 输出。</span>
         ${hiddenCount ? `<strong>已隐藏 ${hiddenCount} 条聊天回显、JSON chunk、prompt 或轮询日志。</strong>` : ''}
       </div>
-      <div class="terminal-console" id="inlineLogBox">${logRows}</div>
+      <div style="display:flex;gap:4px;margin-bottom:8px;border-bottom:1px solid var(--line);padding-bottom:6px;align-items:center;padding:0 14px 6px">
+        ${['all','stdout','stderr'].map(t => `<button type="button" class="outline-btn small-btn ${logTab===t?'active':''}" data-action="set-log-tab" data-log-tab="${t}" style="font-size:11px;padding:2px 10px">${t==='all'?'全部':t==='stdout'?'运行':'服务端'}</button>`).join('')}
+        <span style="flex:1"></span>
+        <button type="button" class="outline-btn small-btn" data-action="scroll-log-bottom" style="font-size:11px;padding:2px 10px">⬇ 最新</button>
+        <button type="button" class="outline-btn small-btn" data-action="clear-logs" style="font-size:11px;padding:2px 10px;color:#e74c3c">✕ 清空</button>
+      </div>
+      <div class="terminal-console log-box" id="inlineLogBox">${logRows}</div>
     </section>
   `
 }
@@ -1668,23 +1675,6 @@ function renderModernSettingsContent() {
           ${benchResults.length ? `<div style="overflow-x:auto;margin-bottom:8px"><table class="bench-table"><thead><tr><th>项</th><th>t/s</th></tr></thead><tbody>${benchResults.map(r => `<tr><td>${escapeHtml(r.model || r.backend || '-')}</td><td>${r.tps ? r.tps.toFixed(1) : (r['t/s'] ? r['t/s'].toFixed(1) : '-')}</td></tr>`).join('')}</tbody></table></div>` : ''}
           ${br.benchLog?.length ? `<pre class="bench-log" style="margin-bottom:8px">${br.benchLog.map(l => escapeHtml(l)).join('\n━━━━━━━━━━━━━━━━━━━━\n')}</pre>` : ''}
         </section>
-        ${renderModernSettingsCard('服务端日志', 'ANSI 颜色码已被过滤。', `
-          <div style="display:flex;gap:4px;margin-bottom:8px;border-bottom:1px solid var(--line);padding-bottom:6px;align-items:center">
-            ${['all','stdout','stderr'].map(t => `<button type="button" class="outline-btn small-btn ${(state.logTab||'all')===t?'active':''}" data-action="set-log-tab" data-log-tab="${t}" style="font-size:11px;padding:2px 10px">${t==='all'?'全部':t==='stdout'?'运行':'服务端'}</button>`).join('')}
-            <span style="flex:1"></span>
-            <button type="button" class="outline-btn small-btn" data-action="scroll-log-bottom" style="font-size:11px;padding:2px 10px">⬇ 最新</button>
-            <button type="button" class="outline-btn small-btn" data-action="clear-logs" style="font-size:11px;padding:2px 10px;color:#e74c3c">✕ 清空</button>
-          </div>
-          <div class="log-box" id="logBox">
-            ${(state.logTab||'all') === 'test' 
-              ? (br.benchLog?.length ? br.benchLog.map(l => `<div class="log-entry desktop">${escapeHtml(l)}</div>`).join('') : '<div class="empty-log">还没有测试日志。</div>')
-              : (() => {
-                  const logs = (state.logTab||'all') === 'all' ? visibleLogs() : visibleLogs().filter(e => e.source === state.logTab)
-                  return logs.length ? logs.map(entry => renderLogRow(entry, 'log-entry')).join('') : '<div class="empty-log">还没有日志。</div>'
-                })()
-            }
-          </div>
-        `)}
       </div>
     `
   }
