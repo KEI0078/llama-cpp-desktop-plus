@@ -430,7 +430,7 @@ button {
 }
 
 .message.system .avatar {
-  background: #9b3d3d;
+  background: transparent;
   color: var(--danger);
 }
 
@@ -450,8 +450,8 @@ button {
 }
 
 .message.system .bubble {
-  background: var(--danger-soft);
-  border-color: var(--danger-soft);
+  background: transparent;
+  border-color: transparent;
   color: var(--danger);
 }
 
