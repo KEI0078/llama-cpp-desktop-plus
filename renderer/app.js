@@ -1360,7 +1360,7 @@ function renderSettingsPanel() {
         <div class="settings-body">${renderSettingsContent()}</div>
         <div class="settings-foot">
           <button class="outline-btn" type="button" data-action="save">保存</button>
-          <button class="primary-btn" type="button" data-action="close-settings">完成</button>
+          <button class="finish-btn" type="button" data-action="close-settings">完成</button>
         </div>
       </div>
     </aside>
@@ -1657,7 +1657,7 @@ function renderModernSettingsPanel() {
         <div class="settings-body">${renderModernSettingsContent()}</div>
         <div class="settings-foot">
           <button class="outline-btn" type="button" data-action="save">保存</button>
-          <button class="primary-btn" type="button" data-action="close-settings">完成</button>
+          <button class="finish-btn" type="button" data-action="close-settings">完成</button>
         </div>
       </div>
     </aside>

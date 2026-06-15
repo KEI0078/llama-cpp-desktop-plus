@@ -835,15 +835,25 @@ button {
 }
 
 .primary-btn {
-  border: 1px solid var(--line-strong);
-  background: var(--ink);
-  color: var(--bg);
+  border: 1px solid #3a4d30;
+  background: #5d7a4a;
+  color: #ffffff;
 }
 
 .danger-btn {
-  border: 1px solid var(--danger-soft);
-  background: var(--danger-soft);
-  color: var(--danger);
+  border: 1px solid #6a2a2a;
+  background: #9b3d3d;
+  color: #ffffff;
+}
+
+.finish-btn {
+  min-height: 40px;
+  border: 1px solid #4a305a;
+  border-radius: 8px;
+  background: #7a5d8a;
+  color: #ffffff;
+  padding: 0 16px;
+  cursor: pointer;
 }
 
 .status-dot {
@@ -3014,6 +3024,9 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 /* 暗夜组件覆盖 */
 .theme-dark .outline-btn { background: var(--btn-bg); color: var(--btn-text); border-color: var(--line); }
+.theme-dark .primary-btn { background: #5d7a4a; color: #fff; border-color: #3a4d30; }
+.theme-dark .danger-btn { background: #9b3d3d; color: #fff; border-color: #6a2a2a; }
+.theme-dark .finish-btn { background: #7a5d8a; color: #fff; border-color: #4a305a; }
 .theme-dark .settings-panel { background: var(--surface); }
 .theme-dark .settings-rail { background: var(--sidebar); }
 .theme-dark .settings-stack-card { background: var(--surface); }
