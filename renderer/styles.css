@@ -3262,18 +3262,3 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark input, .theme-dark textarea, .theme-dark select { background: var(--input-bg) !important; color: var(--ink) !important; }
 .theme-dark button { color: var(--ink) !important; }
 .theme-dark { color: var(--ink); }
-
-/* v1.1 暗夜主题 - 全局反相终极方案 */
-.theme-dark .app-shell {
-  filter: invert(1) hue-rotate(180deg);
-}
-.theme-dark .app-shell img,
-.theme-dark .app-shell video,
-.theme-dark .app-shell svg,
-.theme-dark .app-shell .theme-icon,
-.theme-dark .app-shell .status-dot,
-.theme-dark .app-shell .preview-image,
-.theme-dark .app-shell .chat-image-attachment img,
-.theme-dark .app-shell .log-time {
-  filter: invert(1) hue-rotate(180deg);
-}
