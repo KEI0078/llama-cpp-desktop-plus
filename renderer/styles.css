@@ -59,7 +59,7 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
-  color: #5d635b;
+  color: var(--text-secondary);
   font-size: 13px;
   user-select: none;
   -webkit-app-region: drag;
@@ -111,7 +111,7 @@ button {
 
 .gear-btn:hover,
 .sidebar-toggle:hover {
-  background: #eceee8;
+  background: var(--bg-muted);
 }
 
 .app-shell {
@@ -161,8 +161,8 @@ button {
   border-radius: 8px;
   display: grid;
   place-items: center;
-  background: #141713;
-  color: #dcebd7;
+  background: var(--sidebar);
+  color: var(--ink);
   font-weight: 800;
   font-size: 15px;
 }
@@ -198,7 +198,7 @@ button {
 .side-action:hover,
 .side-action.active,
 .history-item:hover {
-  background: #eceee8;
+  background: var(--bg-muted);
 }
 
 .side-action.active {
@@ -260,7 +260,7 @@ button {
 }
 
 .history-item.active {
-  background: #e8eee5;
+  background: var(--bg-active);
 }
 
 .history-search {
@@ -419,7 +419,7 @@ button {
   border-radius: 8px;
   display: grid;
   place-items: center;
-  background: #eff2ed;
+  background: var(--bg-soft);
   color: var(--green);
   font-size: 12px;
   font-weight: 800;
@@ -451,7 +451,7 @@ button {
 
 .message.system .bubble {
   background: var(--danger-soft);
-  border-color: #efc8c1;
+  border-color: var(--danger-soft);
   color: var(--danger);
 }
 
@@ -527,12 +527,12 @@ button {
 }
 
 .attach-menu button:hover {
-  background: #f1f2ee;
+  background: var(--bg-soft);
 }
 
 .attach-menu button:disabled {
   cursor: not-allowed;
-  color: #a1a79f;
+  color: var(--text-tertiary);
   background: transparent;
 }
 
@@ -589,7 +589,7 @@ button {
   margin: 0;
   border: 1px solid var(--green-line);
   border-radius: 8px;
-  background: #f6faf4;
+  background: var(--green-soft);
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(18, 22, 17, 0.05);
 }
@@ -611,7 +611,7 @@ button {
   width: 100%;
   height: 112px;
   object-fit: cover;
-  background: #eef2eb;
+  background: var(--bg-hover);
 }
 
 .attachment-card figcaption {
@@ -641,7 +641,7 @@ button {
   max-width: min(360px, 100%);
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #f1f2ee;
+  background: var(--bg-soft);
   padding: 6px 8px;
   display: inline-flex;
   align-items: center;
@@ -659,8 +659,8 @@ button {
 .attachment-chip.message-file,
 .message-attachment-row .attachment-chip {
   max-width: min(420px, 100%);
-  border-color: #e2e4df;
-  background: #f7f8f5;
+  border-color: var(--border-divider);
+  background: var(--bg-card);
   border-radius: 999px;
   padding: 8px 11px;
 }
@@ -743,13 +743,13 @@ button {
 }
 
 .round-btn {
-  background: #f1f2ee;
+  background: var(--bg-soft);
   color: var(--ink);
   font-size: 22px;
 }
 
 .send-btn {
-  background: #7b8079;
+  background: var(--toggle-off);
   color: white;
   font-size: 19px;
 }
@@ -761,7 +761,7 @@ button {
 .model-chip {
   max-width: 180px;
   border-radius: 8px;
-  background: #f1f2ee;
+  background: var(--bg-soft);
   padding: 8px 10px;
   color: var(--ink);
   font-size: 12px;
@@ -801,7 +801,7 @@ button {
 
 .service-left code {
   color: var(--ink);
-  background: #f1f2ee;
+  background: var(--bg-soft);
   border-radius: 8px;
   padding: 5px 8px;
   overflow: hidden;
@@ -835,13 +835,13 @@ button {
 }
 
 .primary-btn {
-  border: 1px solid #435f45;
+  border: 1px solid var(--green-line);
   background: var(--green);
   color: white;
 }
 
 .danger-btn {
-  border: 1px solid #e6bbb4;
+  border: 1px solid var(--danger-soft);
   background: var(--danger-soft);
   color: var(--danger);
 }
@@ -850,7 +850,7 @@ button {
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: #9ca29b;
+  background: var(--muted);
 }
 
 .status-dot.running {
@@ -912,7 +912,7 @@ button {
 .settings-rail {
   min-height: 0;
   border-right: 1px solid var(--line);
-  background: #fbfaf6;
+  background: var(--surface-soft);
   padding: 24px 20px;
   display: grid;
   grid-template-rows: auto auto auto minmax(0, 1fr) auto;
@@ -1035,7 +1035,7 @@ button {
 .icon-btn {
   width: 38px;
   height: 38px;
-  background: #f1f2ee;
+  background: var(--bg-soft);
   color: var(--ink);
   font-size: 22px;
 }
@@ -1222,13 +1222,13 @@ button {
 }
 
 .pill.warn {
-  border-color: #ead49c;
-  background: #fbf4df;
+  border-color: var(--pending);
+  background: var(--green-soft);
   color: var(--pending);
 }
 
 .pill.bad {
-  border-color: #efc8c1;
+  border-color: var(--danger-soft);
   background: var(--danger-soft);
   color: var(--danger);
 }
@@ -1279,7 +1279,7 @@ button {
   min-width: 64px;
 }
 .gpu-info-item span {
-  color: #d1d5db;
+  color: var(--text-tertiary);
   flex: 1;
 }
 .gpu-vram {
@@ -1297,7 +1297,7 @@ button {
   overflow-y: auto;
   border-radius: 8px;
   background: #11140f;
-  color: #dbe8d6;
+  color: var(--ink);
   padding: 14px;
   font-family: "Cascadia Mono", Consolas, monospace;
   font-size: 12px;
@@ -1313,7 +1313,7 @@ button {
   align-items: baseline;
 }
 .log-entry .log-time {
-  color: #96b5c2;
+  color: var(--text-tertiary);
   flex-shrink: 0;
   min-width: 52px;
   font-size: 12px;
@@ -1331,7 +1331,7 @@ button {
 }
 
 .log-entry span {
-  color: #96b5c2;
+  color: var(--text-tertiary);
 }
 
 .log-entry strong {
@@ -1345,7 +1345,7 @@ button {
 }
 
 .empty-log {
-  color: #91a08d;
+  color: var(--text-tertiary);
 }
 
 .toast,
@@ -1458,7 +1458,7 @@ button {
   padding: 0;
   font-size: 14px;
   line-height: 1.68;
-  color: #20231f;
+  color: var(--text-primary);
 }
 
 .markdown-text {
@@ -1481,13 +1481,13 @@ button {
   border-left: 3px solid var(--line-strong);
   margin: 0 0 14px;
   padding: 2px 0 2px 12px;
-  color: #4f554d;
+  color: var(--text-secondary);
 }
 
 .think-block summary {
   width: fit-content;
   border-radius: 8px;
-  background: #f0f2ed;
+  background: var(--bg-row);
   color: var(--muted);
   cursor: pointer;
   font-size: 12px;
@@ -1499,7 +1499,7 @@ button {
   margin: 14px 0 0;
   border: 1px dashed var(--line-strong);
   border-radius: 8px;
-  background: #f7f8f4;
+  background: var(--surface-soft);
   overflow: hidden;
   display: block;
 }
@@ -1522,7 +1522,7 @@ button {
   padding: 12px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  color: #30352f;
+  color: var(--text-secondary);
   font-size: 12px;
   line-height: 1.65;
 }
@@ -1531,7 +1531,7 @@ button {
   margin: 14px 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fbfcfb;
+  background: var(--surface-soft);
   overflow: hidden;
 }
 
@@ -1543,7 +1543,7 @@ button {
   gap: 12px;
   padding: 0 11px;
   border-bottom: 1px solid var(--line);
-  background: #f6f7f4;
+  background: var(--bg-soft);
 }
 
 .code-block figcaption span {
@@ -1568,7 +1568,7 @@ button {
 }
 
 .code-block button:hover {
-  background: #e9ece6;
+  background: var(--bg-soft);
 }
 
 .code-block .eye-btn {
@@ -1657,7 +1657,7 @@ button {
 
 .message-meta span {
   border-radius: 8px;
-  background: #f1f3ef;
+  background: var(--bg-soft);
   color: var(--muted);
   padding: 3px 7px;
   font-size: 11px;
@@ -1666,7 +1666,7 @@ button {
 }
 
 .message-meta .model-pill {
-  color: #5f665d;
+  color: var(--text-secondary);
 }
 
 .message-actions button {
@@ -1681,7 +1681,7 @@ button {
 }
 
 .message-actions button:hover {
-  background: #f1f3ef;
+  background: var(--bg-soft);
   color: var(--ink);
 }
 
@@ -1895,7 +1895,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .attach-menu button span.menu-icon.video {
   border-radius: 999px;
-  background: #f5efe9;
+  background: var(--surface-soft);
 }
 
 .send-btn {
@@ -1977,7 +1977,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   overflow: auto;
   border-radius: 8px;
   background: #10140f;
-  color: #dcebd7;
+  color: var(--ink);
   padding: 16px;
   font-family: "Cascadia Mono", Consolas, monospace;
   font-size: 12px;
@@ -1995,7 +1995,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .terminal-summary strong {
-  color: #4f7450;
+  color: var(--text-secondary);
   font-weight: 700;
 }
 
@@ -2008,16 +2008,16 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .terminal-row span {
-  color: #95b4c2;
+  color: var(--text-tertiary);
 }
 
 .terminal-row strong {
-  color: #b9d5b0;
+  color: var(--text-tertiary);
 }
 
 .terminal-row em {
   min-width: 0;
-  color: #dcebd7;
+  color: var(--ink);
   font-style: normal;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2080,7 +2080,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   display: grid;
   place-items: center;
   padding: 20px;
-  background: #f7f8f4;
+  background: var(--surface-soft);
 }
 
 .preview-image-wrap img {
@@ -2107,7 +2107,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .history-row:hover,
 .history-row.active {
-  background: #eceee8;
+  background: var(--bg-muted);
 }
 
 .history-row .history-item {
@@ -2127,7 +2127,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: #7a8178;
+  color: var(--text-tertiary);
   font-weight: 700;
   opacity: 0;
 }
@@ -2138,7 +2138,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .history-more:hover {
-  background: #dde3db;
+  background: var(--bg-soft);
   color: var(--ink);
 }
 
@@ -2171,7 +2171,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .history-menu button:hover {
-  background: #f1f2ee;
+  background: var(--bg-soft);
 }
 
 .history-menu button.danger {
@@ -2252,7 +2252,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .log-box {
   border: 1px solid var(--line);
   background: #f7faf7;
-  color: #2d342c;
+  color: var(--text-primary);
   box-shadow: 0 14px 36px rgba(18, 22, 17, 0.05);
 }
 
@@ -2276,21 +2276,21 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .terminal-row span,
 .log-entry span {
-  color: #758272;
+  color: var(--text-tertiary);
 }
 
 .terminal-row strong,
 .log-entry strong {
-  color: #4f7450;
+  color: var(--text-secondary);
   font-weight: 700;
 }
 
 .terminal-row em {
-  color: #293028;
+  color: var(--text-tertiary);
 }
 
 .log-entry em {
-  color: #293028;
+  color: var(--text-tertiary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2316,7 +2316,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   border: 1px solid #222;
   border-radius: 8px;
   background: #0c0c0c;
-  color: #d7d7d7;
+  color: var(--text-tertiary);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
   padding: 14px 16px;
   font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
@@ -2338,7 +2338,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .terminal-muted {
-  color: #8b8b8b;
+  color: var(--text-tertiary);
 }
 
 .empty-log {
@@ -2428,8 +2428,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .model-trigger:hover {
-  background: #e9eee7;
-  border-color: #c8d2c3;
+  background: var(--bg-soft);
+  border-color: var(--text-tertiary);
   color: var(--ink);
   transform: translateY(-1px);
 }
@@ -2502,7 +2502,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   min-height: 0;
   overflow: auto;
   padding: 14px 16px 16px;
-  background: #fcfcfa;
+  background: var(--surface-soft);
   display: grid;
   gap: 12px;
   align-content: start;
@@ -2569,7 +2569,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   height: 28px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #f7f8f4;
+  background: var(--surface-soft);
   color: var(--ink);
   font-size: 14px;
   display: grid;
@@ -2577,7 +2577,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 }
 
 .icon-copy-btn:hover {
-  background: #eef1ec;
+  background: var(--bg-hover);
 }
 
 .icon-copy-btn svg {
@@ -2623,8 +2623,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   padding: 12px;
   max-height: 220px;
   overflow: auto;
-  background: #f7f8f4;
-  color: #2f342e;
+  background: var(--surface-soft);
+  color: var(--text-secondary);
   font-size: 12px;
   line-height: 1.55;
   font-family: "Cascadia Mono", Consolas, monospace;
@@ -2634,7 +2634,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .model-info-empty {
   min-height: 280px;
-  border: 1px dashed #d5dbd1;
+  border: 1px dashed var(--border-card);
   border-radius: 14px;
   background: var(--surface);
   display: grid;
@@ -2674,7 +2674,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
 .settings-rail {
   padding: 22px 18px 18px;
-  background: #fbfaf6;
+  background: var(--surface-soft);
   gap: 16px;
 }
 
@@ -2705,19 +2705,19 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .settings-tab-icon {
   width: 40px;
   height: 40px;
-  border: 1px solid #d9dfd6;
+  border: 1px solid var(--border-card);
   border-radius: 12px;
   background: linear-gradient(180deg, #ffffff 0%, #f6f8f3 100%);
   display: grid;
   place-items: center;
-  color: #5a6657;
+  color: var(--text-secondary);
   font-size: 15px;
   line-height: 0;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .settings-rail-tabs button.active .settings-tab-icon {
-  border-color: #c8d6c7;
+  border-color: var(--line);
   background: linear-gradient(180deg, #f7fcf5 0%, #edf6e9 100%);
   color: var(--green);
   box-shadow: 0 10px 20px rgba(80, 111, 81, 0.08);
@@ -2804,8 +2804,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   margin-top: 14px;
   border: 1px solid #dce4d8;
   border-radius: 8px;
-  background: #f5f8f2;
-  color: #465243;
+  background: var(--surface-soft);
+  color: var(--text-secondary);
   padding: 10px 12px;
   font-size: 12px;
   line-height: 1.65;
@@ -2830,7 +2830,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #151713;
-  color: #dcebd7;
+  color: var(--ink);
   padding: 11px 12px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -2841,7 +2841,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .command-preview.has-error pre {
   background: #241715;
   color: #ffd8d2;
-  border-color: #efc8c1;
+  border-color: var(--danger-soft);
 }
 
 .command-preview button {
@@ -2862,7 +2862,7 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .settings-mcp-placeholder {
   border: 1px dashed #d8ded4;
   border-radius: 14px;
-  background: #fafbf8;
+  background: var(--bg-soft);
   padding: 18px;
 }
 
@@ -2899,39 +2899,59 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 
   .settings-panel {
     width: calc(100vw - 44px);
-    min-width: 0;
   }
 }
 
-/* 批量测速表格 */
-.bench-table { width:100%;border-collapse:collapse;font-size:13px;margin-top:4px; }
-.bench-table th,.bench-table td { padding:6px 12px;text-align:right;border-bottom:1px solid #d9dfd6; }
-.bench-table th { color:#6b7368;font-weight:500; }
-.bench-table td:first-child { text-align:left;color:#1a1d18;font-weight:500; }
-.bench-table tr:last-child td { border-bottom:none; }
-.bench-chip { display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border:1px solid #d9dfd6;border-radius:6px;font-size:12px;cursor:pointer;background:#fff; }
-.bench-chip input { width:14px;height:14px;cursor:pointer; }
-.bench-log { margin-top:8px;padding:8px 10px;background:#0a0e13;color:#9ca3af;border-radius:6px;font-size:11px;line-height:1.5;max-height:200px;overflow-y:auto;font-family:'Cascadia Mono',Consolas,monospace;white-space:pre-wrap;word-break:break-all; }
-
-/* ── v1.1 变量 & 暗夜主题 ──────────────────── */
+/* ── v1.1 变量 ──────────────────── */
 :root {
-  --btn-bg: #f1f2ee;
-  --btn-text: #151713;
-  --btn-primary: #506f51;
-  --btn-primary-text: #fff;
-  --btn-danger: #b45149;
-  --btn-danger-text: #fff;
-  --input-bg: #ffffff;
-  --log-bg: #f7faf7;
-  --log-text: #2d342c;
-  --chip-bg: #f1f2ee;
-  --card-header-bg: #f7faf7;
-  --bg-soft: #f1f2ee;
-  --text-secondary: #5d635b;
-  --text-tertiary: #758272;
-  --border-card: #d9dfd6;
-  --hover-overlay: rgba(0,0,0,0.06);
-}
+  --bg: #f8faf8;
+  --sidebar: #f2f6f2;
+  --surface: #ffffff;
+      --surface-soft: #f7faf7;
+      --ink: #151713;
+      --muted: #6f746d;
+      --line: #e3e5df;
+      --line-strong: #cfd5ca;
+      --green: #506f51;
+      --green-soft: #edf5eb;
+      --green-line: #c8d9c2;
+      --danger: #b45149;
+      --danger-soft: #faece9;
+      --pending: #9b7a36;
+      --shadow: 0 18px 55px rgba(18, 22, 17, 0.08);
+      --btn-bg: #f1f2ee;
+      --btn-text: #151713;
+      --btn-primary: #506f51;
+      --btn-primary-text: #fff;
+      --btn-danger: #b45149;
+      --btn-danger-text: #fff;
+      --input-bg: #ffffff;
+      --log-bg: #f7faf7;
+      --log-text: #2d342c;
+      --chip-bg: #f1f2ee;
+      --card-header-bg: #f7faf7;
+      --bg-soft: #f1f2ee;
+      --bg-muted: #eceee8;
+      --bg-hover: #eef2eb;
+      --bg-active: #e8eee5;
+      --bg-card: #f7f8f5;
+      --bg-row: #f0f2ed;
+      --text-primary: #151713;
+      --text-secondary: #5d635b;
+      --text-tertiary: #758272;
+      --text-on-primary: #ffffff;
+      --text-on-danger: #ffffff;
+      --border-light: #e3e5df;
+      --border-input: #e3e5df;
+      --border-divider: #e2e4df;
+      --border-card: #d9dfd6;
+      --shadow-light: rgba(18, 22, 17, 0.05);
+      --shadow-medium: rgba(18, 22, 17, 0.10);
+      --shadow-strong: rgba(18, 22, 17, 0.18);
+      --hover-overlay: rgba(0, 0, 0, 0.06);
+      --backdrop-overlay: rgba(15, 17, 13, 0.62);
+      --toggle-off: #7b8079;
+    }
 
 .theme-dark {
   --bg: #000000;
