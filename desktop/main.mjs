@@ -1148,7 +1148,7 @@ function createMainWindow() {
     minWidth: 1120,
     minHeight: 720,
     title: '',  // v1.1：隐藏 OS 标题栏文字，与应用完美融合
-    backgroundColor: '#F7F7F4',
+    backgroundColor: '#f8faf8',  // v1.1：与 --bg 完全一致，避免色差
     icon: iconPath,
     titleBarStyle: 'hiddenInset',  // v1.1：macOS 完全隐藏红黄绿按钮，Windows 等同 default
     titleBarOverlay: {
