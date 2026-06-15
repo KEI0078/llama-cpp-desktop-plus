@@ -916,6 +916,10 @@ function switchField(name, label, hint) {
 function renderSidebar() {
   const query = state.historySearch.trim().toLowerCase()
   const sessions = state.sessions
+    .filter(session => {
+      if (state.showArchived) return session.archived
+      return !session.archived
+    })
     .filter(session => !query || String(session.title || '').toLowerCase().includes(query))
     .slice(0, 28)
     .map(session => `
