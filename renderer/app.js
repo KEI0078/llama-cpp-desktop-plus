@@ -1471,6 +1471,7 @@ function renderModernSettingsContent() {
             ${switchField('show_raw_output', '显示原始输出', '排查模板和思考模式时使用。')}
             ${switchField('webui', '保留 llama.cpp Web UI', '保留浏览器页入口，方便双开调试。')}
             ${switchField('verbose', '显示详细日志', '输出更多服务端信息，便于排查。')}
+            ${switchField('dark_theme', '暗夜主题', '深蓝紫色调暗色界面，适合夜间使用。')}
           </div>
         `)}
       </div>
@@ -1669,6 +1670,8 @@ function render(options = {}) {
     appEl.innerHTML = '<div class="boot">正在读取配置...</div>'
     return
   }
+  // v1.1：暗夜主题切换
+  document.documentElement.classList.toggle('theme-dark', !!state.config.dark_theme)
 
   const previousFeed = document.getElementById('chatFeed')
   const previousFeedTop = previousFeed?.scrollTop || 0
