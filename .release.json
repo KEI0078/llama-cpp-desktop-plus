@@ -1,0 +1,6 @@
+{
+  "tag_name": "v1.0.0",
+  "name": "v1.0.0 最终版",
+  "body": "## v1.0.0 最终版（2026-06-14）\n\n### 增强功能\n- 参数管理：7分类常用参数平铺 + 下拉选择\n- MTP 多 Token 预测（--model-draft + --spec-type）\n- GPU 实时解析 + 持久化缓存\n- 3 个测速工具（上下文/多线程/llama-bench）\n- 模型扫描（智能分类 + 自动填入）\n- 脚本与配置保存/加载\n- 日志三栏切换 + 单行流布局 + 刷新/清空\n- 底部上下文使用率指示器\n\n### Bug 修复\n- 参数重复累积 / GPU 层数无效 / G盘硬编码路径等7个bug\n\n### 下载\n便携版：Llama.cpp-Desktop-Plus-2026-06-14-最终版.exe\n安装版：Llama.cpp-Desktop-Plus-Setup-2026-06-14-最终版.exe",
+  "draft": true
+}
