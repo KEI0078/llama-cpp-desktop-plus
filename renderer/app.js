@@ -1907,7 +1907,7 @@ function applyStreamDelta(payload) {
 
 async function save() {
   state.busy = true
-  render()
+  render({ preserveChatScroll: true })
   try {
     patchFromBackend(await window.llamaDesktop.saveConfig({ config: state.config }))
     setToast('配置已保存')
@@ -1921,7 +1921,7 @@ async function save() {
 
 async function start() {
   state.busy = true
-  render()
+  render({ preserveChatScroll: true })
   try {
     patchFromBackend(await window.llamaDesktop.startServer({ config: state.config }))
     state.active = 'chat'
@@ -1936,7 +1936,7 @@ async function start() {
 
 async function stop() {
   state.busy = true
-  render()
+  render({ preserveChatScroll: true })
   try {
     patchFromBackend(await window.llamaDesktop.stopServer())
     setToast('服务已停止')
@@ -2602,7 +2602,7 @@ appEl.addEventListener('click', event => {
   }
   if (action === 'new-chat') {
     startFreshSession()
-    render()
+    render({ jumpToBottom: true })
   }
   if (action === 'save') void save()
   if (action === 'start') void start()
