@@ -3036,8 +3036,8 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .composer textarea { background: var(--input-bg); color: var(--ink); }
 .theme-dark .log-box { background: var(--log-bg); color: var(--log-text); }
 .theme-dark .chat-feed { background: var(--surface); }
-.theme-dark .settings-tabs button { background: var(--surface); color: var(--muted); border-color: var(--line); }
-.theme-dark .settings-tabs button.active { background: var(--surface-soft); color: var(--ink); border-color: var(--line-strong); }
+.theme-dark .settings-tabs button { background: var(--surface) !important; color: var(--muted) !important; border-color: var(--line) !important; }
+.theme-dark .settings-tabs button.active { background: var(--surface-soft) !important; color: var(--ink) !important; border-color: var(--line-strong) !important; }
 .theme-dark .field input, .theme-dark .field textarea, .theme-dark .field select { background: var(--input-bg); color: var(--ink); }
 .theme-dark .model-chip, .theme-dark .bench-chip { background: var(--chip-bg); border-color: var(--line); color: var(--ink); }
 .theme-dark .chat-message,
@@ -3048,4 +3048,5 @@ body:has(.app-shell.sidebar-collapsed) .drag-region {
 .theme-dark .message-body .markdown-text { color: var(--ink); }
 .theme-dark .message.user .message-body { background: var(--surface); }
 .theme-dark .message.user .bubble { background: var(--surface-soft); border-color: var(--line); }
+.theme-dark .message.user .avatar { background: var(--bg-soft); color: var(--ink) !important; }
 .theme-dark .avatar { background: var(--bg-soft); color: var(--ink); }
