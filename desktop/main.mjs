@@ -1120,7 +1120,7 @@ function getInitialTitleBarOverlay() {
   try {
     const fs = require('node:fs')
     const state = JSON.parse(fs.readFileSync(defaultStatePath(), 'utf8') || '{}')
-    const dark = state.config?.dark_theme
+    const dark = state.dark_theme ?? state.config?.dark_theme
     return dark
       ? { color: '#1c1c1e', symbolColor: '#ffffff' }
       : { color: '#f7f8f5', symbolColor: '#2b2922' }
@@ -1132,8 +1132,9 @@ function getInitialTitleBarOverlay() {
 async function applyTitleBarOverlay() {
   if (!mainWindow || mainWindow.isDestroyed()) return
   try {
-    const config = await loadConfig()
-    mainWindow.setTitleBarOverlay(config.dark_theme
+    const state = await readJson(defaultStatePath(), {})
+    const dark = state.dark_theme ?? state.config?.dark_theme
+    mainWindow.setTitleBarOverlay(dark
       ? { color: '#1c1c1e', symbolColor: '#ffffff' }
       : { color: '#f7f8f5', symbolColor: '#2b2922' }
     )
