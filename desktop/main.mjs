@@ -1150,7 +1150,7 @@ function createMainWindow() {
     title: '',  // v1.1：隐藏 OS 标题栏文字，与应用完美融合
     backgroundColor: '#F7F7F4',
     icon: iconPath,
-    titleBarStyle: 'hidden',
+    titleBarStyle: 'hiddenInset',  // v1.1：macOS 完全隐藏红黄绿按钮，Windows 等同 default
     titleBarOverlay: {
       ...getInitialTitleBarOverlay(),
       height: 36,
