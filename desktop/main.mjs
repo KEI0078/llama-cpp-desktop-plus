@@ -1116,6 +1116,19 @@ function createTray() {
 }
 
 // v1.1：根据当前配置设置窗口标题栏颜色
+function getInitialTitleBarOverlay() {
+  try {
+    const fs = require('node:fs')
+    const state = JSON.parse(fs.readFileSync(defaultStatePath(), 'utf8') || '{}')
+    const dark = state.config?.dark_theme
+    return dark
+      ? { color: '#1c1c1e', symbolColor: '#ffffff' }
+      : { color: '#f7f8f5', symbolColor: '#2b2922' }
+  } catch (e) {
+    return { color: '#f7f8f5', symbolColor: '#2b2922' }
+  }
+}
+
 async function applyTitleBarOverlay() {
   if (!mainWindow || mainWindow.isDestroyed()) return
   try {
@@ -1138,8 +1151,7 @@ function createMainWindow() {
     icon: iconPath,
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-      color: '#F4F3EC',
-      symbolColor: '#2B2922',
+      ...getInitialTitleBarOverlay(),
       height: 36,
     },
     webPreferences: {
