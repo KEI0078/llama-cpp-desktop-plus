@@ -1051,11 +1051,11 @@ function renderTerminalPanel() {
           <span>终端日志</span>
           <strong>llama.cpp server output</strong>
         </div>
-        <button type="button" class="outline-btn" data-action="return-chat">回到聊天</button>
       </div>
       <div class="terminal-summary">
         <span>正常终端视图：只显示 llama.cpp/server/runtime 输出。</span>
         ${hiddenCount ? `<strong>已隐藏 ${hiddenCount} 条聊天回显、JSON chunk、prompt 或轮询日志。</strong>` : ''}
+        <button type="button" class="outline-btn" data-action="return-chat" style="margin-left:auto">回到聊天</button>
       </div>
       <div class="log-toolbar">
         ${['all','stdout','stderr'].map(t => `<button type="button" class="outline-btn small-btn ${logTab===t?'active':''}" data-action="set-log-tab" data-log-tab="${t}" style="font-size:11px;padding:2px 10px">${t==='all'?'全部':t==='stdout'?'运行':'服务端'}</button>`).join('')}
